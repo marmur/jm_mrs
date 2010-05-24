@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- /FiraRobot.xml -->
+<Robot type="FiraRobot">
+    <Parts>
+        <Part name="Body" position_z="-0.02">
+            <Mass type="box" size_x="0.055" size_y="0.075" size_z="0.075" mass="0.7"/>
+            <Geoms>
+			<Geom  type="box"
+			position_x="0" position_y="0" position_z="0.02" 
+			size_x="0.055" size_y="0.071" size_z="0.075" friction="0.01" bouncyness="0.3"/>
+			<Geom  type="box" 
+			position_x="0" position_y="0.0365" position_z="0" 
+			size_x="0.075" size_y="0.002" size_z="0.035" friction="0.01" bouncyness="0.3"/>
+			<Geom  type="box" 
+			position_x="0" position_y="-0.0365" position_z="0" 
+			size_x="0.075" size_y="0.002" size_z="0.035" friction="0.01" bouncyness="0.3"/>
+
+			
+			<Geom  type="sphere"  position_x="0.0275" position_y="0" position_z="0"
+			size_x="0.001" friction="3.5" bouncyness="0.0"/>
+			
+            </Geoms>
+        </Part>
+        <Part name="LeftFrontWheel" position_x="0" position_y="0.0355" position_z="-0.033">
+            <Mass type="sphere" size_x="0.005" mass="0.1"/>
+            <Geoms>
+			<Geom  type="sphere" 
+			size_x="0.005" friction="3.5" bouncyness="0.0"/>
+            </Geoms>
+        </Part>
+        <Part name="RightFrontWheel" position_x="0" position_y="-0.0355" position_z="-0.033">
+            <Mass type="sphere" size_x="0.005" mass="0.1"/>
+            <Geoms>
+			<Geom  type="sphere" 
+			size_x="0.005" friction="3.5" bouncyness="0.0"/>
+			
+            </Geoms>
+        </Part>
+    </Parts>
+    
+	<Sensors>
+		<Sensor name="front_distance" type="rangefinder" part="Body" 
+			direction_x="1" 
+			position_x="0.0275" position_y="0" position_z="0" range="1"/>
+    </Sensors>    
+	
+    <Joints>
+	<Joint name="leftEngine" part1="Body" part2="LeftFrontWheel" type="hinge" direction_y="1"  
+	anchor_y="0.0355" anchor_z="-0.033">
+	    <Motor const_force="0.05"/>
+	</Joint>
+	<Joint name="rightEngine" part1="Body" part2="RightFrontWheel" type="hinge" direction_y="1" 
+	anchor_y="-0.0355" anchor_z="-0.033">
+	    <Motor const_force="0.05"/>
+	</Joint>
+    </Joints>    
+</Robot>
+
+
+
+
