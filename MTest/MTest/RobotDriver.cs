@@ -2,31 +2,68 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using RoBOSSCommunicator;
 
 namespace MTest
 {
-    interface IRobotDriver
+    ///<summary>
+    /// Describe the current state of robot 
+    ///</summary>
+    public enum DriverStatus 
     {
-        void Refresh();
+        Processing,     // robot is executing commands
+        Done,           // robot has done his last command 
+        Collision,      // robot has detected collision
+        Obstacle        // robot has detected obstacle 
+    }
 
-        int id
+    public interface IRobotDriver
+    {
+        void Process();
+        void CommandTest(double leftEngine, double rightEngine);
+        void CommandGoTo(double x, double y);
+        void CommandLookAt(double x, double y);
+        void CommandEmergencyStop();
+
+        int Id
         {
             get;
         }
 
-        string name
+        string Name
         {
             get;
         }
 
-        string type
+        string Type
         {
             get;
         }
 
-        unsafe double* position
+        DriverStatus Status
         {
             get;
         }
+
+        double[] Position
+        {
+            get;
+        }
+
+        double[] SensorsValue
+        {
+            get;
+        }
+
+        Robot.Joint[] Joints
+        {
+            get;
+        }
+
+        Vector Direction
+        {
+            get;
+        }
+        
     }
 }

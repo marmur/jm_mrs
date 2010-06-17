@@ -12,142 +12,116 @@ using System.Collections.Generic;
 
 namespace MTest
 {
-	/// <summary>
-	/// Summary description for Form1.
-	/// </summary>
-    /// 
 
+
+
+    /// <summary>
+    /// Summary description for Form1.
+    /// </summary>
     public partial class MainForm : Form
-	{
+    {
         private Communicator communicator = null;
-
-		
-		
         private Thread driverThread;
-        
-
         private BindingList<IRobotDriver> driversList;
         private IRobotDriver selectedDriver;
-   
+        private ControlForm controls;
+
         public SimpleLog sLog;
 
-		public MainForm()
-		{
-			//
-			// Required for Windows Form Designer support
-			//
-			InitializeComponent();
 
-	
+        public MainForm()
+        {
+            //
+            // Required for Windows Form Designer support
+            //
+            InitializeComponent();
+            //to avoid flicker FIXME:stil flicker :<
+            SetStyle(ControlStyles.UserPaint, true);
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            SetStyle(ControlStyles.DoubleBuffer, true);
+
             addressTextBox.Text = Dns.GetHostEntry(Dns.GetHostName()).AddressList[0].ToString();
             driversList = new BindingList<IRobotDriver>();
             BindingSource bindingDrivers = new BindingSource();
             bindingDrivers.DataSource = driversList;
             driversListBox.DataSource = bindingDrivers;
+            driversListBox.DisplayMember = "Name";
 
             sLog = new SimpleLog();
-            
-		}
+            controls = new ControlForm(this);
 
-		/// <summary>
-		/// The main entry point for the application.
-		/// </summary>
-		[STAThread]
-		static void Main() 
-		{
-			Application.Run(new MainForm());
-		}
+        }
 
-		private void connectButton_Click(object sender, System.EventArgs e)
-		{
-			if (communicator != null)
-			{
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main()
+        {
+            Application.Run(new MainForm());
+        }
+
+        private void connectButton_Click(object sender, System.EventArgs e)
+        {
+            if (communicator != null)
+            {
                 StopDriverThread();
-				communicator.Dispose();
-				communicator = null;
+                communicator.Dispose();
+                communicator = null;
                 driversButton.Enabled = false;
-				connectButton.Text = "Connect";
-				connectionStatusLabel.Text = "Disconnected";
+                connectButton.Text = "Connect";
+                connectionStatusLabel.Text = "Disconnected";
                 sLog.log("Disconnected");
-				return;	
-			}
+                return;
+            }
 
-			communicator = new Communicator();
-			connectionStatusLabel.Text = "Connecting to Controller...";
+            communicator = new Communicator();
+            connectionStatusLabel.Text = "Connecting to Controller...";
             sLog.log("Connecting to Controller...");
-			Refresh();
-			if (communicator.Connect(addressTextBox.Text,portTextBox.Text, "fira tester") <0)
-			{
-				connectionStatusLabel.Text = "Unable to contact Controller";
+            Refresh();
+            if (communicator.Connect(addressTextBox.Text, portTextBox.Text, "fira tester") < 0)
+            {
+                connectionStatusLabel.Text = "Unable to contact Controller";
                 sLog.log("Unable to contact Controller");
-				Refresh();
-				communicator = null;
-				return;
-			}
+                Refresh();
+                communicator = null;
+                return;
+            }
+            //TODO: add recovery after crash 
+            if (driversList.Count > 0)
+            {
+                driversList.Clear();
+            }
 
             driversButton.Enabled = true;
-			connectButton.Text = "Disconnect";
-			connectionStatusLabel.Text = "Connected to Controller";
+            connectButton.Text = "Disconnect";
+            connectionStatusLabel.Text = "Connected to Controller";
             sLog.log("Connected to Controller");
 
 
-           
-            
-		}
 
-        unsafe private void  RefreshRobotInfo(Robot r)
-        {
-                robotNameLabel.Text = "robot name : ";
-                robotPositionLabel.Text = "position : ";
-                sensorLabel.Text = "sensor : ";
-                sensorPositionLabel.Text = "sensors position : ";
-                rotationLabel.Text = "rotation: ";
-                angleLabel.Text = "angle: ";
-                if (r != null)
-                {
-                    robotNameLabel.Text += r.name;
-                    robotPositionLabel.Text += "[" + r.position[0] + " : " + r.position[1] + " : " + r.position[2] + "]";
-                    Robot.SensorRangeFinder fs = r.GetSensorByName("front_distance") as Robot.SensorRangeFinder;
-                    fs.UpdateValue();
-                    sensorLabel.Text += fs.value;
-                    sensorPositionLabel.Text += "[" + fs.position[0] + " : " + fs.position[1] + " : " + fs.position[2] + "]";
-                    rotationLabel.Text += "[" + r.rotation[0] + 
-                                Environment.NewLine + r.rotation[1] +
-                                Environment.NewLine + r.rotation[2] + 
-                                Environment.NewLine + r.rotation[3] + "]";
-                    angleLabel.Text += "w-> " + 
-                        (180*Math.Acos(r.rotation[0])*2.0)/Math.PI + Environment.NewLine+
-                        " z-> "+ (180*Math.Asin(r.rotation[3])*2.0)/Math.PI; 
-                }
+
         }
 
-        unsafe private void RefreshDriverInfo(IRobotDriver driver)
+        private void RefreshDriverInfo(IRobotDriver driver)
         {
             robotNameLabel.Text = "robot name : ";
             robotPositionLabel.Text = "position : ";
             sensorLabel.Text = "sensor : ";
-            sensorPositionLabel.Text = "sensors position : ";
-            rotationLabel.Text = "rotation: ";
-            angleLabel.Text = "angle: ";
-            if (driver != null)
+            statusLabel.Text = "status : ";
+            if (driver != null && communicator != null)
             {
-                robotNameLabel.Text += driver.name;
-                robotPositionLabel.Text += "[" + driver.position[0] + " : " + driver.position[1] + " : " + driver.position[2] + "]";
-                /*
-                Robot.SensorRangeFinder fs = r.GetSensorByName("front_distance") as Robot.SensorRangeFinder;
-                fs.UpdateValue();
-                sensorLabel.Text += fs.value;
-                sensorPositionLabel.Text += "[" + fs.position[0] + " : " + fs.position[1] + " : " + fs.position[2] + "]";
-                rotationLabel.Text += "[" + r.rotation[0] +
-                            Environment.NewLine + r.rotation[1] +
-                            Environment.NewLine + r.rotation[2] +
-                            Environment.NewLine + r.rotation[3] + "]";
-                angleLabel.Text += "w-> " +
-                    (180 * Math.Acos(r.rotation[0]) * 2.0) / Math.PI + Environment.NewLine +
-                    " z-> " + (180 * Math.Asin(r.rotation[3]) * 2.0) / Math.PI;
-                 */
+                robotNameLabel.Text += driver.Name;
+                robotPositionLabel.Text += String.Format("[{0:0.000}:{1:0.000}:{2:0.000}]", driver.Position[0], driver.Position[1], driver.Position[2]);
+                statusLabel.Text += driver.Status;
+                sensorLabel.Text += String.Format("{0:0.000}", driver.SensorsValue[0]);
             }
 
+        }
+
+        private void UIRefresh(){
+            RefreshDriverInfo(selectedDriver);
+            controls.Refresh();
         }
 
         private void StartDriverThread()
@@ -172,74 +146,89 @@ namespace MTest
             driversButton.Text = "Start";
         }
 
-		private void RefreshDriverThread()
-		{
-            sLog.log("RefreshDriverThread running");
-			try
-			{
-				while (true)
-				{
-					if (communicator.Receive(Communicator.RECEIVEBLOCKLEVEL_WaitForNewTimestamp) < 0)
-					{
-                        sLog.log("communicator.Receive fail");
-						break;
-					}
-                    foreach(IRobotDriver driver in driversList){
-                        driver.Refresh();
-                    }
-                    RefreshDriverInfo(selectedDriver);
-
-					if (communicator.Send() < 0)
-					{
-                        sLog.log("communicator.Send fail");
-						break;
-					}
-				}
-                   
-			}
-			catch 
-			{
-                sLog.log("Exception catch in RefreshDriverThread");
-			}
-            sLog.log("RefreshDriverThread stopped");
-            driverThread = null;
-            driversButton.Text = "Start";
-            connectButton_Click(this, null);
-		}
-
-        private void stopButton_Click(object sender, System.EventArgs e)
+        private void RefreshDriverThread()
         {
-            leftEngine.Value = 0;
-            rightEngine.Value = 0;
-            velocity.Value = 0;
+            sLog.log("RefreshDriverThread running");
+            try
+            {
+                while (true)
+                {
+                    if (communicator.Receive(Communicator.RECEIVEBLOCKLEVEL_WaitForNewTimestamp) < 0)
+                    {
+                        sLog.log("communicator.Receive fail");
+                        break;
+                    }
+                    lock (driversList)
+                    {
+                        foreach (IRobotDriver driver in driversList)
+                        {
+                            driver.Process();
+                        }
+                    }
+                    UIRefresh();
+
+                    if (communicator.Send() < 0)
+                    {
+                        sLog.log("communicator.Send fail");
+                        break;
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                if (e is ThreadAbortException)
+                    sLog.log("RefreshDriverThread stopped");
+                else
+                {
+                    sLog.log("Exception catched in RefreshDriverThread " + e);
+                    driverThread = null;
+                    driversButton.Text = "Start";
+                    connectButton_Click(this, null);
+                }
+            }
+
+
         }
 
-        private void controlsButton_Click(object sender, System.EventArgs e)
+
+
+        private void logButton_Click(object sender, System.EventArgs e)
         {
             sLog.Show();
             sLog.BringToFront();
         }
 
+        private void controlButton_Click(object sender, System.EventArgs e)
+        {
+            controls.Show();
+            controls.BringToFront();
+                
+        }
+
         private void addDriverButton_Click(object sender, System.EventArgs e)
         {
-            if(communicator == null )
+            if (communicator == null)
             {
                 sLog.log("Connect to communicator before adding drivers!!!");
                 return;
             }
 
-           String robotType = "FiraRobot";
-           int id = communicator.RequestRobot(robotType);
-           if (id < 0)
-           {
-               sLog.log("Unable to get robot " + robotType);
-               Refresh();
-               return;
-           }
-           Robot robot = communicator.robots[id];
-            driversList.Add(new FiraDriver(robot));
+            String robotType = "FiraRobot";
+            int id = communicator.RequestRobot(robotType);
+            if (id < 0)
+            {
+                sLog.log("Unable to get robot " + robotType);
+                Refresh();
+                return;
+            }
+            Robot robot = communicator.robots[id];
+            lock (driversList)
+            {
+                driversList.Add(new FiraDriver(robot));
+            }
             sLog.log("Fira driver added");
-            driversListBox.DataSource = driversList;
+            //driversListBox.DataSource = driversList;
             Refresh();
         }
 
@@ -248,7 +237,7 @@ namespace MTest
             if (driversListBox.SelectedIndex != -1)
             {
                 selectedDriver = (IRobotDriver)driversListBox.SelectedItem;
-                RefreshDriverInfo(selectedDriver);
+                UIRefresh();
                 sLog.log("selection changed");
             }
         }
@@ -264,6 +253,13 @@ namespace MTest
                 StartDriverThread();
             }
         }
-	}
-    
+
+
+        #region Property
+        public IRobotDriver SelectedDriver
+        {
+            get { return selectedDriver; }
+        }
+        #endregion
+    }
 }
