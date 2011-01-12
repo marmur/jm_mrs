@@ -73,6 +73,7 @@
       <DependentUpon>ControlForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FiraDriver.cs" />
+    <Compile Include="IAgent.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,6 +83,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RobotDriver.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="SimpleAgent.cs" />
     <Compile Include="SimpleLog.cs">
       <SubType>Form</SubType>
     </Compile>

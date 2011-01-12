@@ -59,6 +59,12 @@ namespace MTest
             y -= v.Y;
         }
 
+        public void Add(Vector v)
+        {
+            x += v.X;
+            y += v.Y;
+        }
+
 
         /// <summary>
         /// which way rotate vector

@@ -1,0 +1,26 @@
+<World name="MyMaze" gravity="9.81">
+  <Robots>
+    <Robot type="FiraRobot" name="r1" position_x="2" position_y="2" position_z="0.04" />
+  </Robots>
+  <Environment>
+    <Geoms>
+	  <!-- floor -->
+      <Geom type="box"  position_x="0" position_y="0" position_z="0" size_x="5" size_y="5" size_z="0.004"  color="ff8080ff"/>
+	  <!-- walls -->
+	  <Geom type="box"  position_x="0" position_y="-2.5" position_z="0.1" size_x="5" size_y="0.002" size_z="0.2"  color="008080ff"/>
+	  <Geom type="box"  position_x="0" position_y="2.5" position_z="0.1" size_x="5" size_y="0.002" size_z="0.2"  color="008080ff"/>
+	  <Geom type="box"  position_x="-2.5" position_y="0" position_z="0.1" size_x="0.002" size_y="5" size_z="0.2"  color="008080ff"/>
+	  <Geom type="box"  position_x="2.5" position_y="0" position_z="0.1" size_x="0.002" size_y="5" size_z="0.2"  color="008080ff"/>
+	  
+	  <!-- static obstacles -->
+	  <!-- 
+	  <Geom type="box"  position_x="1.5" position_y="1.0" position_z="0.1" size_x="1" size_y="2" size_z="0.2"  color="008080ff"/>
+	  -->
+	  <Geom type="box"  position_x="0" position_y="0" position_z="0.3" size_x="1" size_y="1" size_z="0.6"  color="008080ff"/>
+	   
+		
+	   <!-- markers -->
+		<Geom type="box"  position_x="-2.0" position_y="-2.0" position_z="0.5" size_x="0.1" size_y="0.1" size_z="0.1"  color="008080ff"/>
+	 </Geoms>
+  </Environment>
+</World>

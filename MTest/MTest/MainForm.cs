@@ -20,11 +20,17 @@ namespace MTest
     /// </summary>
     public partial class MainForm : Form
     {
+        private String robotType = "FiraRobot";
         private Communicator communicator = null;
         private Thread driverThread;
         private BindingList<IRobotDriver> driversList;
         private IRobotDriver selectedDriver;
         private ControlForm controls;
+
+
+        //for testing agent
+        private SimpleAgent agent;
+        private Thread agentThread;
 
         public SimpleLog sLog;
 
@@ -35,7 +41,7 @@ namespace MTest
             // Required for Windows Form Designer support
             //
             InitializeComponent();
-            //to avoid flicker FIXME:stil flicker :<
+            //to avoid flickering FIXME :<
             SetStyle(ControlStyles.UserPaint, true);
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.DoubleBuffer, true);
@@ -153,7 +159,7 @@ namespace MTest
             {
                 while (true)
                 {
-                    if (communicator.Receive(Communicator.RECEIVEBLOCKLEVEL_WaitForNewTimestamp) < 0)
+                    if (communicator.Receive(Communicator.RECEIVEBLOCKLEVEL_WaitForTimestamp) < 0)
                     {
                         sLog.log("communicator.Receive fail");
                         break;
@@ -214,7 +220,7 @@ namespace MTest
                 return;
             }
 
-            String robotType = "FiraRobot";
+           
             int id = communicator.RequestRobot(robotType);
             if (id < 0)
             {
@@ -261,5 +267,55 @@ namespace MTest
             get { return selectedDriver; }
         }
         #endregion
+
+        //For testing agent
+        private void buttonTestAgent_Click(object sender, EventArgs e)
+        {
+            if(agentThread != null){
+                sLog.log("Reseting agent thread");
+                agentThread.Abort();
+                agentThread.Join();
+                agentThread = null;
+            }
+            sLog.log("Preparing agent");
+            agent = new SimpleAgent();
+            if(driversList.Count != 1){
+                addDriverButton_Click(this, null);
+            }
+            agent.setMainForm(this);
+            agent.setDriver(driversList[0]);
+            agent.setGoalPosition(-2.0, -2.0);
+            sLog.log("Starting agent thread");
+            StartDriverThread();
+            agentThread = new Thread(new ThreadStart(RefreshAgentThread));
+            agentThread.Priority = ThreadPriority.Normal;
+            agentThread.Start();
+        }
+
+        private void RefreshAgentThread()
+        {
+            sLog.log("RefreshAgentThread running");
+            try
+            {
+                while (!agent.isWorkCompleat())
+                {
+                    agent.doWork();
+                }
+                sLog.log("Agent has finished his job");
+            }
+            catch (Exception e)
+            {
+                if (e is ThreadAbortException)
+                    sLog.log("RefreshAgentThread stopped");
+                else
+                {
+                    sLog.log("Exception catched in RefreshAgentThread " + e);
+                    agentThread = null;
+                    connectButton_Click(this, null);
+                }
+            }
+            agentThread = null;
+        }
+
     }
 }

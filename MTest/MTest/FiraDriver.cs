@@ -27,6 +27,12 @@ namespace MTest
             }
         }
 
+        private const double rotationEpsilon = 0.005;
+        private const double positionEpsilon = 0.005;
+        private const double maxVelocity = 10.0;
+        private const double obstacleDetectionRange = 0.055;
+
+
         private const String rangeFinderName = "front_distance";
         private const String leftWheelName = "LeftFrontWheel";
         private const String rightWheelName = "RightFrontWheel";
@@ -49,7 +55,7 @@ namespace MTest
             leftWhell = robot.GetPartByName(leftWheelName);
             rightWheel = robot.GetPartByName(rightWheelName);
             direction = new Vector();
-            setDirection();
+            updateDirection();
             commandQueue = new List<Command>();
         }
 
@@ -105,7 +111,7 @@ namespace MTest
 
         public Vector Direction
         {
-            get { return direction; }
+            get { updateDirection();  return direction; }
         }
         #endregion
 
@@ -113,7 +119,7 @@ namespace MTest
         /// <summary>
         /// Calculate robot direction based on the wheel position 
         /// </summary>
-        private void setDirection()
+        private void updateDirection()
         {
             unsafe
             {
@@ -176,12 +182,8 @@ namespace MTest
         #region Commands
         public void Process()
         {
-            const double rotationEpsilon = 0.002;
-            const double positionEpsilon = 0.002;
-            const double maxVelocity = 10.0;
-            const double obstacleDetectionRange = 0.025;
             //read position and direction
-            setDirection();
+            updateDirection();
             rangeFinder.UpdateValue();
             Vector curnetPosition = new Vector(Position[0], Position[1]);
             //TODO: map update

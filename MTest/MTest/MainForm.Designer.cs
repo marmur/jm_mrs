@@ -49,6 +49,7 @@ namespace MTest
             this.driversListBox = new System.Windows.Forms.ListBox();
             this.addDriverButton = new System.Windows.Forms.Button();
             this.driversButton = new System.Windows.Forms.Button();
+            this.buttonTestAgent = new System.Windows.Forms.Button();
             this.controllerConnectionGroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -220,10 +221,21 @@ namespace MTest
             this.driversButton.UseVisualStyleBackColor = true;
             this.driversButton.Click += new System.EventHandler(this.driversButton_Click);
             // 
+            // buttonTestAgent
+            // 
+            this.buttonTestAgent.Location = new System.Drawing.Point(127, 134);
+            this.buttonTestAgent.Name = "buttonTestAgent";
+            this.buttonTestAgent.Size = new System.Drawing.Size(75, 23);
+            this.buttonTestAgent.TabIndex = 29;
+            this.buttonTestAgent.Text = "TestAgent";
+            this.buttonTestAgent.UseVisualStyleBackColor = true;
+            this.buttonTestAgent.Click += new System.EventHandler(this.buttonTestAgent_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.ClientSize = new System.Drawing.Size(487, 321);
+            this.Controls.Add(this.buttonTestAgent);
             this.Controls.Add(this.driversButton);
             this.Controls.Add(this.addDriverButton);
             this.Controls.Add(this.driversListBox);
@@ -261,6 +273,7 @@ namespace MTest
         private Button driversButton;
         private TableLayoutPanel tableLayoutPanel1;
         private Label statusLabel;
+        private Button buttonTestAgent;
 
     }
 }
