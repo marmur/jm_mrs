@@ -1,6 +1,7 @@
 <World name="MyMaze" gravity="9.81">
   <Robots>
     <Robot type="FiraRobot" name="r1" position_x="0" position_y="0" position_z="0.04" />
+	<Robot type="FiraRobot" name="r2" position_x="0" position_y="0.7" position_z="0.04" />
   </Robots>
   <Environment>
     <Geoms>

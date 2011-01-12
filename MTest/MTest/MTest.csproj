@@ -88,6 +88,10 @@
     <Compile Include="SimpleLog.Designer.cs">
       <DependentUpon>SimpleLog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils.cs" />
+    <EmbeddedResource Include="ControlForm.resx">
+      <DependentUpon>ControlForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

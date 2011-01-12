@@ -45,11 +45,11 @@
     </Sensors>    
 	
     <Joints>
-	<Joint name="leftEngine" part1="Body" part2="LeftFrontWheel" type="hinge" direction_y="1"  
+	<Joint name="leftEngine" part1="Body" part2="LeftFrontWheel" type="hinge" direction_y="-1"  
 	anchor_y="0.0355" anchor_z="-0.033">
 	    <Motor const_force="0.05"/>
 	</Joint>
-	<Joint name="rightEngine" part1="Body" part2="RightFrontWheel" type="hinge" direction_y="1" 
+	<Joint name="rightEngine" part1="Body" part2="RightFrontWheel" type="hinge" direction_y="-1" 
 	anchor_y="-0.0355" anchor_z="-0.033">
 	    <Motor const_force="0.05"/>
 	</Joint>
