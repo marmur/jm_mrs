@@ -1,0 +1,16 @@
+C:\AGENTY\jm_mrs\MTest\MTest\bin\Debug\MTest.exe.config
+C:\AGENTY\jm_mrs\MTest\MTest\bin\Debug\MTest.exe
+C:\AGENTY\jm_mrs\MTest\MTest\bin\Debug\MTest.pdb
+C:\AGENTY\jm_mrs\MTest\MTest\bin\Debug\Common.Logging.dll
+C:\AGENTY\jm_mrs\MTest\MTest\bin\Debug\Common.Logging.Log4Net.dll
+C:\AGENTY\jm_mrs\MTest\MTest\bin\Debug\log4net.dll
+C:\AGENTY\jm_mrs\MTest\MTest\bin\Debug\RoBOSSCommunicator.dll
+C:\AGENTY\jm_mrs\MTest\MTest\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\AGENTY\jm_mrs\MTest\MTest\obj\x86\Debug\MTest.ControlForm.resources
+C:\AGENTY\jm_mrs\MTest\MTest\obj\x86\Debug\MTest.MainForm.resources
+C:\AGENTY\jm_mrs\MTest\MTest\obj\x86\Debug\MTest.SimpleLog.resources
+C:\AGENTY\jm_mrs\MTest\MTest\obj\x86\Debug\GenerateResource-ResGen.read.1.tlog
+C:\AGENTY\jm_mrs\MTest\MTest\obj\x86\Debug\GenerateResource-ResGen.write.1.tlog
+C:\AGENTY\jm_mrs\MTest\MTest\obj\x86\Debug\MTest.exe
+C:\AGENTY\jm_mrs\MTest\MTest\obj\x86\Debug\MTest.pdb
+C:\AGENTY\jm_mrs\MTest\MTest\obj\x86\Debug\MTest.view.DebugView.resources
