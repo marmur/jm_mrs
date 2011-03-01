@@ -23,6 +23,6 @@ namespace MTest.map
 
     public interface IMapFactory
     {
-        IMapManagment CreateMap(Vector startPosition);
+        IMapManagment CreateMap();
     }
 }
