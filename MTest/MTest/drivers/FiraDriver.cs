@@ -53,7 +53,7 @@ namespace MTest
             rangeFinder = robot.GetSensorByName(rangeFinderName) as Robot.SensorRangeFinder;
             leftWhell = robot.GetPartByName(leftWheelName);
             rightWheel = robot.GetPartByName(rightWheelName);
-            direction = new Vector();
+            direction = new Vector(0,0);
             updateDirection();
             commandQueue = new List<Command>();
         }

@@ -66,11 +66,13 @@ namespace MTest.map
         }
     }
 
+
+
     public class MapFactory : IMapFactory
     {
         #region IMapFactory Members
 
-        public IMapManagment CreateMap(Vector startPosition)
+        public IMapManagment CreateMap()
         {
             return new Map();
         }
