@@ -14,3 +14,18 @@ C:\AGENTY\jm_mrs\MTest\MTest\obj\x86\Debug\GenerateResource-ResGen.write.1.tlog
 C:\AGENTY\jm_mrs\MTest\MTest\obj\x86\Debug\MTest.exe
 C:\AGENTY\jm_mrs\MTest\MTest\obj\x86\Debug\MTest.pdb
 C:\AGENTY\jm_mrs\MTest\MTest\obj\x86\Debug\MTest.view.DebugView.resources
+C:\Documents and Settings\marmur\Moje dokumenty\pp\MTest\MTest\bin\Debug\MTest.exe.config
+C:\Documents and Settings\marmur\Moje dokumenty\pp\MTest\MTest\obj\x86\Debug\MTest.exe
+C:\Documents and Settings\marmur\Moje dokumenty\pp\MTest\MTest\obj\x86\Debug\MTest.pdb
+C:\Documents and Settings\marmur\Moje dokumenty\pp\MTest\MTest\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\marmur\Moje dokumenty\pp\MTest\MTest\obj\x86\Debug\MTest.ControlForm.resources
+C:\Documents and Settings\marmur\Moje dokumenty\pp\MTest\MTest\obj\x86\Debug\MTest.view.DebugView.resources
+C:\Documents and Settings\marmur\Moje dokumenty\pp\MTest\MTest\obj\x86\Debug\MTest.MainForm.resources
+C:\Documents and Settings\marmur\Moje dokumenty\pp\MTest\MTest\obj\x86\Debug\MTest.SimpleLog.resources
+C:\Documents and Settings\marmur\Moje dokumenty\pp\MTest\MTest\obj\x86\Debug\MTest.csproj.GenerateResource.Cache
+C:\Documents and Settings\marmur\Moje dokumenty\pp\MTest\MTest\bin\Debug\MTest.exe
+C:\Documents and Settings\marmur\Moje dokumenty\pp\MTest\MTest\bin\Debug\MTest.pdb
+C:\Documents and Settings\marmur\Moje dokumenty\pp\MTest\MTest\bin\Debug\Common.Logging.dll
+C:\Documents and Settings\marmur\Moje dokumenty\pp\MTest\MTest\bin\Debug\Common.Logging.Log4Net.dll
+C:\Documents and Settings\marmur\Moje dokumenty\pp\MTest\MTest\bin\Debug\log4net.dll
+C:\Documents and Settings\marmur\Moje dokumenty\pp\MTest\MTest\bin\Debug\RoBOSSCommunicator.dll

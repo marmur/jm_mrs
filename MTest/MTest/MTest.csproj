@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{220C6F73-C053-4816-95B3-5F86E0203681}</ProjectGuid>
     <OutputType>Exe</OutputType>
@@ -81,6 +81,10 @@
     <Compile Include="core\AgentThreadPool.cs" />
     <Compile Include="core\ICommunicatorManageer.cs" />
     <Compile Include="core\IResourceManager.cs" />
+    <Compile Include="core\maps\IMap.cs" />
+    <Compile Include="core\maps\Map.cs" />
+    <Compile Include="core\maps\MapBody.cs" />
+    <Compile Include="core\maps\MapHolder.cs" />
     <Compile Include="core\ResourceManager.cs" />
     <Compile Include="core\RobotsRepository.cs" />
     <Compile Include="core\TestCase.cs" />

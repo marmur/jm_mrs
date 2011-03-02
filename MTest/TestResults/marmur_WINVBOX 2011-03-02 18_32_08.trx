@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="74e4c244-8ca3-471e-816b-a158cb0b292e" name="marmur@WINVBOX 2011-03-02 18:32:08" runUser="WINVBOX\marmur" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2006">
+  <TestRunConfiguration name="Local Test Run" id="e3ab33fe-ebdc-4fdb-bc03-425b279958b6">
+    <Description>This is a default test run configuration for a local test run.</Description>
+    <Deployment runDeploymentRoot="C:\Documents and Settings\marmur\Moje dokumenty\pp\MTest\TestResults\marmur_WINVBOX 2011-03-02 18_32_08" />
+    <TestTypeSpecific />
+  </TestRunConfiguration>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <Times creation="2011-03-02T18:32:08.6069838+01:00" queuing="2011-03-02T18:32:10.5998494+01:00" start="2011-03-02T18:32:11.0204542+01:00" finish="2011-03-02T18:32:12.0719662+01:00" />
+  <TestDefinitions>
+    <UnitTest name="TestMethod1" storage="c:\documents and settings\marmur\moje dokumenty\pp\mtest\mtestunittests\bin\debug\mtestunittests.dll" id="007af86e-30ec-20b9-0f4f-694f43d24db2">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="b3ca9570-c7c5-4ce7-b68e-33f87f7f38f6" />
+      <TestMethod codeBase="C:\Documents and Settings\marmur\Moje dokumenty\pp\MTest\MTestUnitTests\bin\Debug\MTestUnitTests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="MTestUnitTests.UnitTest1, MTestUnitTests" name="TestMethod1" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="007af86e-30ec-20b9-0f4f-694f43d24db2" executionId="b3ca9570-c7c5-4ce7-b68e-33f87f7f38f6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="b3ca9570-c7c5-4ce7-b68e-33f87f7f38f6" testId="007af86e-30ec-20b9-0f4f-694f43d24db2" testName="TestMethod1" computerName="WINVBOX" duration="00:00:00.0242282" startTime="2011-03-02T18:32:11.1005694+01:00" endTime="2011-03-02T18:32:11.7715342+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>

@@ -16,7 +16,10 @@ namespace MTest
             this.z = z;
         }
 
-        public Vector(double x=1.0, double y=0.0):this(x,y,0.0)
+        public Vector():this(1,1){
+        }
+
+        public Vector(double x, double y):this(x,y,0.0)
         {
         }
 
