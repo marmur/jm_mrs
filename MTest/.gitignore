@@ -1,2 +1,5 @@
 *.exe
 *.so
+TestResults/*.trx
+TestResults/*/Out/*.pdb
+TestResults/*/Out/*.dll
