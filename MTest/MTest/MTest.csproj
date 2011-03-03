@@ -85,6 +85,7 @@
     <Compile Include="core\maps\Map.cs" />
     <Compile Include="core\maps\MapBody.cs" />
     <Compile Include="core\maps\MapHolder.cs" />
+    <Compile Include="core\maps\MapHolderBuilder.cs" />
     <Compile Include="core\ResourceManager.cs" />
     <Compile Include="core\RobotsRepository.cs" />
     <Compile Include="core\TestCase.cs" />

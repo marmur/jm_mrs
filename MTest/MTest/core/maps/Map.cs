@@ -9,6 +9,9 @@ namespace MTest.core.maps
     public class Map : IMapManagment
     {
         private bool _finish;
+        private MapBody _mapBody;
+        public static int UNKNOWN_MAP_STATE = -1;
+
 
         private bool Finish
         {
@@ -70,26 +73,44 @@ namespace MTest.core.maps
 
         public MapHolder getCurentMapView()
         {
-            throw new NotImplementedException();
+            return _mapBody.getCurentMapView();
         }
 
         public MapHolder requestMapView(int topX, int topY, int sizeX, int sizeY)
         {
-            throw new NotImplementedException();
+            return _mapBody.requestMapView(topX, topX, sizeX, sizeY);
         }
 
         public void pushMapUpdate(MapHolder update)
         {
-            throw new NotImplementedException();
+            _mapBody.pushMapUpdate(update);
         }
 
         public bool isMapFullyUpdated()
         {
-            throw new NotImplementedException();
+            return _mapBody.isMapFullyUpdated();
         }
 
         #endregion
+
+
+
+        public Map()
+        {
+            _mapBody = new MapBody();
+        }
     }
+
+
+
+
+
+
+
+
+
+
+
 
     public class MapFactory : IMapFactory
     {
