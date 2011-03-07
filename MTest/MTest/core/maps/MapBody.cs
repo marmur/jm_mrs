@@ -5,6 +5,39 @@ using System.Text;
 
 namespace MTest.core.maps
 {
+    public class MapVault
+    {
+        public MapHolder mapHolder;
+        int[,] dirtyState;
+        int mapSize;
+        int mapDirtyCount;
+
+
+
+        public void markDirty(int x, int y)
+        {
+            if (dirtyState[x, y] == 0)
+            {
+                dirtyState[x, y] = 1;
+                mapDirtyCount++;
+            }
+        }
+
+
+        public MapVault(MapHolder newMap)
+        {
+            mapSize = newMap.SizeX * newMap.SizeY;
+            mapDirtyCount = 0;
+            dirtyState = MapBody.prepareArray(newMap.SizeX, newMap.SizeY, 0);
+            mapHolder = newMap;
+        }
+
+        public double getDirtyProcentage()
+        {
+            return ((double)mapDirtyCount / (double)mapSize);
+        }
+    }
+
     public class MapBody: IMap
     {
 
@@ -17,10 +50,7 @@ namespace MTest.core.maps
         Queue<MapHolder> updateQueue;
         IMap parent;
 
-        MapHolder currentMap;
-        int[,] dirtyState;
-        int mapSize;
-        int mapDirtyCount;
+        MapVault currentMap;
 
 
 
@@ -34,7 +64,7 @@ namespace MTest.core.maps
 
 
 
-        private int[,] prepareArray(int sizeX, int sizeY, int val)
+        public static int[,] prepareArray(int sizeX, int sizeY, int val)
         {
             int[,] map = new int[sizeX, sizeY];
             for (int i = 0; i < sizeX; i++)
@@ -49,27 +79,10 @@ namespace MTest.core.maps
         }
 
 
-        private void initializeDirtyStatistics(MapHolder newMapHolder){
-            mapSize = newMapHolder.SizeX * newMapHolder.SizeY;
-            mapDirtyCount = 0;
-            dirtyState = prepareArray(newMapHolder.SizeX, newMapHolder.SizeY, 0);
-        }
-
-        private void markDirty(int x, int y)
-        {
-            if (dirtyState[x, y] == 0)
-            {
-                dirtyState[x, y] = 1;
-                mapDirtyCount++;
-            }
-        }
-
         public void initializeMap(int sizeX, int sizeY)
         {
             int[,] map = prepareArray(sizeX, sizeY, Map.UNKNOWN_MAP_STATE);
-            currentMap = new MapHolder( map, 0, 0);
-            initializeDirtyStatistics(currentMap);
-            
+            currentMap = new MapVault(new MapHolder( map, 0, 0));
         }
 
 
@@ -77,6 +90,7 @@ namespace MTest.core.maps
         {
             updateQueue = new Queue<MapHolder>();
             parent = null;
+
         }
 
         public MapHolder getCurentMapView()
@@ -87,7 +101,7 @@ namespace MTest.core.maps
             }
             else
             {
-                return new MapHolder(currentMap);
+                return new MapHolder(currentMap.mapHolder);
             }
         }
         
@@ -100,18 +114,18 @@ namespace MTest.core.maps
                 throw new Exception("Values cannot be < 0");
             }
 
-            if (currentMap != null && topX >= currentMap.X && topY >= currentMap.Y
-                  && (topX + sizeX) <= (currentMap.X + currentMap.SizeX)
-                  && (topY + sizeY) <= (currentMap.Y + currentMap.SizeY))
+            if (currentMap != null && topX >= currentMap.mapHolder.X && topY >= currentMap.mapHolder.Y
+                  && (topX + sizeX) <= (currentMap.mapHolder.X + currentMap.mapHolder.SizeX)
+                  && (topY + sizeY) <= (currentMap.mapHolder.Y + currentMap.mapHolder.SizeY))
             {
                 //This is part of current map
                 int[,] map = new int[sizeX, sizeY];
-                int dispX = topX - currentMap.X;
-                int dispY = topY - currentMap.Y;
+                int dispX = topX - currentMap.mapHolder.X;
+                int dispY = topY - currentMap.mapHolder.Y;
 
                 for (int i = 0; i<sizeX; i++){
                     for (int j = 0; j<sizeY; j++){
-                        map[i,j] = currentMap.Map[i+dispX,j+dispY];
+                        map[i,j] = currentMap.mapHolder.Map[i+dispX,j+dispY];
                     }
                 }
 
@@ -121,11 +135,12 @@ namespace MTest.core.maps
             {
                 if (parent != null)
                 {
-                    //TODO: sync
-                    parent.pushMapUpdate(currentMap);
-                    currentMap = parent.requestMapView(topX, topY, sizeX, sizeY);
-                    initializeDirtyStatistics(currentMap);
-                    return new MapHolder(currentMap);
+                    if (currentMap != null)
+                    {
+                        parent.pushMapUpdate(currentMap.mapHolder);
+                    }
+                    currentMap = new MapVault(parent.requestMapView(topX, topY, sizeX, sizeY));
+                    return new MapHolder(currentMap.mapHolder);
                 }
                 else
                 {
@@ -167,8 +182,8 @@ namespace MTest.core.maps
                 else
                 {                
                     //Find position of SingleUpdate map in CurrentMap
-                    int baseX = singleUpdate.X - currentMap.X;
-                    int baseY = singleUpdate.Y - currentMap.Y;
+                    int baseX = singleUpdate.X - currentMap.mapHolder.X;
+                    int baseY = singleUpdate.Y - currentMap.mapHolder.Y;
 
                     //Set iteration values
                     int xStart, xStop, yStart, yStop;
@@ -182,9 +197,9 @@ namespace MTest.core.maps
                         xStart = baseX;
                     }
 
-                    if ((baseX + singleUpdate.SizeX) > currentMap.SizeX)
+                    if ((baseX + singleUpdate.SizeX) > currentMap.mapHolder.SizeX)
                     {
-                        xStop = currentMap.SizeX;
+                        xStop = currentMap.mapHolder.SizeX;
                         updateParent = true;
                     }
                     else
@@ -202,9 +217,9 @@ namespace MTest.core.maps
                         yStart = baseY;
                     }
 
-                    if ((baseY + singleUpdate.SizeY) > currentMap.SizeY)
+                    if ((baseY + singleUpdate.SizeY) > currentMap.mapHolder.SizeY)
                     {
-                        yStop = currentMap.SizeY;
+                        yStop = currentMap.mapHolder.SizeY;
                         updateParent = true;
                     }
                     else
@@ -217,31 +232,31 @@ namespace MTest.core.maps
                     {
                         for (int j = yStart; j < yStop; j++)
                         {
-                            int newMapX = i + currentMap.X - singleUpdate.X;
-                            int newMaxY = j + currentMap.Y - singleUpdate.Y;
+                            int newMapX = i + currentMap.mapHolder.X - singleUpdate.X;
+                            int newMaxY = j + currentMap.mapHolder.Y - singleUpdate.Y;
 
                             if (singleUpdate.Map[newMapX, newMaxY] != Map.UNKNOWN_MAP_STATE)
                             {
-                                if (currentMap.Map[i, j] == Map.UNKNOWN_MAP_STATE)
+                                if (currentMap.mapHolder.Map[i, j] == Map.UNKNOWN_MAP_STATE)
                                 {
-                                    currentMap.Map[i, j] = singleUpdate.Map[newMapX, newMaxY];
+                                    currentMap.mapHolder.Map[i, j] = singleUpdate.Map[newMapX, newMaxY];
                                 }
                                 else
                                 {
-                                    currentMap.Map[i, j] = (int)(oldValueWeight * currentMap.Map[i, j] + (1 - oldValueWeight) * singleUpdate.Map[newMapX, newMaxY]);
+                                    currentMap.mapHolder.Map[i, j] = (int)(oldValueWeight * currentMap.mapHolder.Map[i, j] + (1 - oldValueWeight) * singleUpdate.Map[newMapX, newMaxY]);
                                 }
 
 
                                 if (!updateParent)
                                 {
-                                    markDirty(i, j);
+                                    currentMap.markDirty(i, j);
                                 }
                             }
                         }
                     }
                 }
 
-                if (((double)mapDirtyCount / (double)mapSize) >= minDirtyRateBeforeUpdate && parent != null)
+                if (currentMap != null && currentMap.getDirtyProcentage() >= minDirtyRateBeforeUpdate && parent != null)
                 {
                     updateParent = true;
                 }
