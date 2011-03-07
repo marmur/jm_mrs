@@ -3,5 +3,5 @@
 TestResults/*.trx
 TestResults/*/Out/*.pdb
 TestResults/*/Out/*.dll
-MTest/obj/
-MTest/bin/
+*/obj/
+*/bin/
