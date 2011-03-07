@@ -67,7 +67,7 @@ namespace MTest.core.maps
         public void initializeMap(int sizeX, int sizeY)
         {
             int[,] map = prepareArray(sizeX, sizeY, Map.UNKNOWN_MAP_STATE);
-            currentMap = new MapHolder(sizeX, sizeY, map, 0, 0);
+            currentMap = new MapHolder( map, 0, 0);
             initializeDirtyStatistics(currentMap);
             
         }
@@ -115,7 +115,7 @@ namespace MTest.core.maps
                     }
                 }
 
-                return new MapHolder(sizeX,sizeY,map,topX,topY);
+                return new MapHolder(map,topX,topY);
             }
             else
             {

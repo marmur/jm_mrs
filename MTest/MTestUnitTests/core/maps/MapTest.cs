@@ -48,7 +48,7 @@ namespace MTest.core.maps
                     map[i, j] = baseValue;
                 }
             }
-            return new MapHolder(sizeX, sizeY, map, X, Y);
+            return new MapHolder( map, X, Y);
         }
 
 
@@ -80,14 +80,14 @@ namespace MTest.core.maps
         [TestMethod()]
         public void isMapUpdatedAfterInsertion()
         {
-            parentMap.pushMapUpdate(new MapHolder(0, 0, null, 0, 0));
+            parentMap.pushMapUpdate(new MapHolder( null, 0, 0));
             Assert.IsFalse(parentMap.isMapFullyUpdated());
         }
 
         [TestMethod()]
         public void isMapUpdatedAfterInsertionAndIteration()
         {
-            childMap.pushMapUpdate(new MapHolder(0, 0, null, 0, 0));
+            childMap.pushMapUpdate(new MapHolder( null, 0, 0));
             childMap.retieveOneEmenentFormQueueAndUpdateMap();
 
             Assert.IsTrue(childMap.isMapFullyUpdated());

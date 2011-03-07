@@ -35,57 +35,49 @@ namespace MTest.core.maps
         }
 
 
-        private int sizeX;
         public int SizeX
         {
             get
             {
-                return sizeX;
+                return map.GetLength(0) ;
             }
         }
 
 
-        private int sizeY;
         public int SizeY
         {
             get
             {
-                return sizeY;
+                return map.GetLength(1);
             }
         }
 
 
 
-        private int[,] cpMap(int sizeX, int sizeY, int[,] source)
+        private int[,] cpMap(int[,] source)
         {
-            int[,] res = new int[sizeX, sizeY];
-
-            for (int i = 0; i < sizeX; i++)
+            if (source != null)
             {
-                for (int j = 0; j < sizeY; j++)
-                {
-                    res[i, j] = source[i, j];
-                }
+                return (int[,])source.Clone();
             }
-            return res;
+            else
+            {
+                return null;
+            }
         }
 
 
         public MapHolder(MapHolder mapHolder)
         {
-            sizeY = mapHolder.sizeY;
-            sizeX = mapHolder.sizeX;
             x = mapHolder.x;
             y = mapHolder.y;
-            map = cpMap(sizeX, sizeY,mapHolder.map);
+            map = cpMap(mapHolder.map);
         }
 
 
-        public MapHolder(int sizeX, int sizeY, int[,] map, int x, int y)
+        public MapHolder(int[,] map, int x, int y)
         {
-            this.sizeX = sizeX;
-            this.sizeY = sizeY;
-            this.map = cpMap(sizeX, sizeY, map);
+            this.map = cpMap(map);
             this.x = x;
             this.y = y;
         }
