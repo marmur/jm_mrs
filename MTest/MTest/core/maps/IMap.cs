@@ -25,8 +25,5 @@ namespace MTest.core.maps
         void StopWork();
     }
 
-    public interface IMapFactory
-    {
-        IMapManagment CreateMap(Vector startPosition);
-    }
+
 }

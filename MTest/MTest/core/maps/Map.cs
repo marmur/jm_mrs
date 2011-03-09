@@ -101,29 +101,4 @@ namespace MTest.core.maps
             _mapBody = new MapBody();
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-    public class MapFactory : IMapFactory
-    {
-        #region IMapFactory Members
-
-        public IMapManagment CreateMap(Vector startPosition)
-        {
-            return new Map();
-        }
-
-        #endregion
-    }
-
-
 }
