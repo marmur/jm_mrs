@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Common.Logging;
 
 namespace MTest.core.maps
 {
@@ -40,6 +41,11 @@ namespace MTest.core.maps
 
     public class MapBody: IMap
     {
+        #region Logging Definition
+
+        private static readonly ILog LOG = LogManager.GetLogger(typeof(MapBody));
+
+        #endregion
 
         #region This should be done in configuration
         double oldValueWeight = 0.2;
@@ -51,12 +57,22 @@ namespace MTest.core.maps
         IMap parent;
 
         MapVault currentMap;
+        private int uniqID;
+        private String uidString;
 
 
 
         public void setParent(IMap parent)
         {
             this.parent = parent;
+            if (parent != null)
+            {
+                LOG.Info(uidString + " parrent has been set");
+            }
+            else
+            {
+                LOG.Info(uidString + " parent set to null");
+            }
         }
 
 
@@ -83,6 +99,7 @@ namespace MTest.core.maps
         {
             int[,] map = prepareArray(sizeX, sizeY, Map.UNKNOWN_MAP_STATE);
             currentMap = new MapVault(new MapHolder( map, 0, 0));
+            LOG.Info(uidString + " Map has been initialized [" + sizeX + "x" + sizeY + "]");
         }
 
 
@@ -90,6 +107,9 @@ namespace MTest.core.maps
         {
             updateQueue = new Queue<MapHolder>();
             parent = null;
+            uniqID = (new Random()).Next();
+            uidString = "[" + uniqID + "]";
+            LOG.Info("New MapBody has been created [Uniq ID: " + uniqID + "]");
 
         }
 
@@ -109,8 +129,10 @@ namespace MTest.core.maps
         public MapHolder requestMapView(int topX, int topY, int sizeX, int sizeY)
         {
             //TODO: Throw exception
+            LOG.Debug(uidString + "RequestMapView has been called");
             if (topX < 0 || topY < 0 || sizeX < 0 || sizeY < 0)
             {
+                LOG.Error("Map boundries set to negative values!");
                 throw new Exception("Values cannot be < 0");
             }
 
@@ -129,12 +151,14 @@ namespace MTest.core.maps
                     }
                 }
 
+                LOG.Debug(uidString + " Retreiving existing part of map");
                 return new MapHolder(map,topX,topY);
             }
             else
             {
                 if (parent != null)
                 {
+                    LOG.Debug(uidString + " Retreiving map form parent");
                     if (currentMap != null)
                     {
                         parent.pushMapUpdate(currentMap.mapHolder);
@@ -144,6 +168,7 @@ namespace MTest.core.maps
                 }
                 else
                 {
+                    LOG.Error(uidString + " Requested map part does not exist!");
                     throw new Exception("No such map");
                 }
             }
@@ -163,6 +188,7 @@ namespace MTest.core.maps
         {
             if (updateQueue.Count > 0)
             {
+                LOG.Debug(uidString + " Map update found in queue");
                 MapHolder singleUpdate = updateQueue.Dequeue();
                 if (singleUpdate == null) return;
 
@@ -171,6 +197,7 @@ namespace MTest.core.maps
                 {
                     if (parent == null)
                     {
+                        LOG.Fatal(uidString + "Map has not been initialized and no parent have been specified while update arrived");
                         throw new Exception("Map is not initialized and no parent map was specified");
                     }
                     else
@@ -180,7 +207,8 @@ namespace MTest.core.maps
                     }
                 }
                 else
-                {                
+                {
+                    LOG.Debug(uidString + " updateing local map");
                     //Find position of SingleUpdate map in CurrentMap
                     int baseX = singleUpdate.X - currentMap.mapHolder.X;
                     int baseY = singleUpdate.Y - currentMap.mapHolder.Y;
@@ -262,8 +290,10 @@ namespace MTest.core.maps
                 }
 
                 if (updateParent){
+                    LOG.Debug(uidString + " Pushing update to parrent map");
                     if (parent == null)
                     {
+                        LOG.Error(uidString + "No parent was specified - unable to push update");
                         throw new Exception("No parent map to be updated");
                     }
                     else
