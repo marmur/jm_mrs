@@ -7,9 +7,15 @@ namespace MTest.core.maps
 {
     class MapHolderBuilder
     {
-        MapHolder buildUpdate(double startx, double starty, double stopx, double stopy, double width)
+        private WorldProperties wp;
+        public MapHolder buildUpdate(double startx, double starty, double stopx, double stopy, double width)
         {
             throw new NotImplementedException();
+        }
+
+        public MapHolderBuilder(WorldProperties wp)
+        {
+            this.wp = wp;
         }
     }
 }
