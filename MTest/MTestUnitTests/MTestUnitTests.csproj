@@ -38,6 +38,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="core\maps\MapHelperBuilderTest.cs" />
     <Compile Include="core\maps\MapTest.cs" />
     <Compile Include="core\maps\WorldPropertiesTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

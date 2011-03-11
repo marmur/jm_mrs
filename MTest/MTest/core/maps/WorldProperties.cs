@@ -97,6 +97,12 @@ namespace MTest.core.maps
             this.RealWorldTopY = RealWorldTopY;
         }
 
+        public int getCellsCount(double value)
+        {
+            double ratio = SimulationWorldSizeX / RealWorldSizeX;
+            return (int)Math.Ceiling(value * ratio);
+
+        }
 
     }
 }
