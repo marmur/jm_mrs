@@ -5,8 +5,8 @@ using System.Text;
 
 namespace MTest.core
 {
-    interface ResourceManager: IResourceManager
+    public  class ResourceManager: IResourceManager
     {
-        
+
     }
 }

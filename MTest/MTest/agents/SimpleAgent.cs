@@ -11,7 +11,7 @@ namespace MTest
         DONE, GO, FIND
     }
 
-    class SimpleAgent: IAgent
+    class SimpleAgent: IAAgent
     {
         private IRobotDriver driver;
 

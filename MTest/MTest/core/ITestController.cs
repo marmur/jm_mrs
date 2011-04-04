@@ -41,7 +41,7 @@ namespace MTest.core
 
         void ResumeTest();
 
-        void SetFocusOnAgent(IAgent2 agent);
+        void SetFocusOnAgent(IAgent agent);
 
         void SetFocusOnTestCase(TestCase testCase);
 

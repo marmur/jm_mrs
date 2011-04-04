@@ -6,7 +6,7 @@ using MTest.core;
 
 namespace MTest
 {
-    public interface IAgent
+    public interface IAAgent
     {
         void setDriver(IRobotDriver driver);
 
@@ -15,15 +15,14 @@ namespace MTest
         void doWork();
     }
 
-
-    public interface IAgent2
+    public interface IAgent 
     {
         void DoWork();
         string Name { get; set; }
         void SetAgentEnviroment(IAgentEnviroment agentEnviroment);
     }
 
-    public interface IRobotAgent : IAgent2
+    public interface IRobotAgent : IAgent
     {
         string GetDriverType();
         void SetDriver(IRobotDriver driver);
@@ -40,7 +39,7 @@ namespace MTest
        
     }
 
-    public interface IAgentLeader : IAgent2
+    public interface IAgentLeader : IAgent
     {
         void SetClient(IClientAgent client);
         void AssignScout(IScoutAgent scout);
@@ -49,8 +48,8 @@ namespace MTest
 
     public interface IAgentEnviroment
     {
-        void LOG(IAgent2 from, string message);
-        void UpdateAgentView(IAgent from);
+        void LOG(IAgent from, string message);
+        void UpdateAgentView(IAAgent from);
     }
 
 }

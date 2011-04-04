@@ -28,7 +28,7 @@ namespace MTest
 
         private const double rotationEpsilon = 0.005;
         private const double positionEpsilon = 0.005;
-        private const double maxVelocity = 10.0;
+        private readonly double maxVelocity;
         private const double obstacleDetectionRange = 0.055;
 
 
@@ -46,16 +46,26 @@ namespace MTest
         private List<Command> commandQueue;
 
 
-        public FiraDriver(Robot r)
+        public FiraDriver(double maxVelocity)
+        {
+            this.maxVelocity = maxVelocity;
+        }
+
+        public void SetRobot(Robot r)
         {
             this.robot = r;
             status = DriverStatus.Done;
             rangeFinder = robot.GetSensorByName(rangeFinderName) as Robot.SensorRangeFinder;
             leftWhell = robot.GetPartByName(leftWheelName);
             rightWheel = robot.GetPartByName(rightWheelName);
-            direction = new Vector(0,0);
+            direction = new Vector(0, 0);
             updateDirection();
             commandQueue = new List<Command>();
+        }
+
+        public FiraDriver(Robot r):this(10)
+        {
+            SetRobot(r);
         }
 
         #region Properties
@@ -108,9 +118,14 @@ namespace MTest
             }
         }
 
+        public double MaxVelocity
+        {
+            get { return maxVelocity; }
+        }
+
         public Vector Direction
         {
-            get { updateDirection();  return direction; }
+            get { updateDirection(); return direction; }
         }
         #endregion
 
@@ -169,13 +184,13 @@ namespace MTest
         {
             if (dV > 0.1)
                 return 1.0;
-            if (dV>0.05)
+            if (dV > 0.05)
                 return 0.5;
             return 0.1;
 
         }
 
-    
+
 
 
         #region Commands
@@ -199,9 +214,9 @@ namespace MTest
                 toDo = commandQueue[0];
             }
 
-            
+
             status = DriverStatus.Processing;
-            Vector goal = new Vector(toDo.x, toDo.y); 
+            Vector goal = new Vector(toDo.x, toDo.y);
             Vector dV;
             switch (toDo.type)
             {
@@ -258,10 +273,12 @@ namespace MTest
                     dDv.Sub(direction);
                     if (dDv.Lenght() > rotationEpsilon)
                     {
-                        if(direction.IsRotateRightAGoodIdea(dDirection)){
+                        if (direction.IsRotateRightAGoodIdea(dDirection))
+                        {
                             rightVel -= rightVel * dDv.Lenght(); //rotationEpsilon < dDv.Length <= 2.0, 2.0 mean 180 degree error
                         }
-                        else{
+                        else
+                        {
                             leftVel -= leftVel * dDv.Lenght();
                         }
                     }

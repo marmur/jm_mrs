@@ -45,8 +45,8 @@
             this.buttonLoadTest = new System.Windows.Forms.Button();
             this.buttonTestSartStop = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.labelClientType = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.controllerConnectionGroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -63,7 +63,7 @@
             this.toolStripStatusLabelInfo});
             this.statusStrip1.Location = new System.Drawing.Point(0, 573);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(441, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(579, 22);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -208,19 +208,10 @@
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Location = new System.Drawing.Point(8, 271);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(244, 206);
+            this.groupBox2.Size = new System.Drawing.Size(244, 291);
             this.groupBox2.TabIndex = 18;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Test case details";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 16);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(60, 13);
-            this.label2.TabIndex = 19;
-            this.label2.Text = "ClientType:";
             // 
             // labelClientType
             // 
@@ -231,11 +222,20 @@
             this.labelClientType.TabIndex = 19;
             this.labelClientType.Text = "label3";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 16);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(60, 13);
+            this.label2.TabIndex = 19;
+            this.label2.Text = "ClientType:";
+            // 
             // DebugView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(441, 595);
+            this.ClientSize = new System.Drawing.Size(579, 595);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.buttonTestSartStop);
             this.Controls.Add(this.buttonLoadTest);

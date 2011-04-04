@@ -6,6 +6,7 @@ using System.Threading;
 using System.Collections.Generic;
 using RoBOSSCommunicator;
 using System.ComponentModel;
+using Spring.Context;
 
 namespace MTest.core
 {
@@ -33,7 +34,7 @@ namespace MTest.core
 
         private TestCase _focusedTestCase;
 
-        private IAgent2 _focusedAgent;
+        private IAgent _focusedAgent;
 
         private BindingList<TestCase> _testCases;
 
@@ -44,6 +45,10 @@ namespace MTest.core
         private TestWorker _mainWorker;
 
         private List<IRobotDriver> _driverList;
+
+        private IApplicationContext _ctx;
+
+        private IResourceManager _resourceManager;
 
         public ICommunicatorManageer CommunicatorManager
         {
@@ -67,8 +72,10 @@ namespace MTest.core
 
         #region Constructors Definition
 
-        public TestController()
+        public TestController(IApplicationContext ctx)
         {
+            _ctx = ctx;
+            _resourceManager = (IResourceManager)ctx.GetObject("ResourceManager");
             _testCases = new BindingList<TestCase>();
             _communicationManager = new CommunicatorManager();
             _robotRepo = new RobotsRepository();
@@ -393,7 +400,7 @@ namespace MTest.core
             }
         }
 
-        public void SetFocusOnAgent(IAgent2 agent)
+        public void SetFocusOnAgent(IAgent agent)
         {
             lock (_refreshFocusViewLock)
             {

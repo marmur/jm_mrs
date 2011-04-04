@@ -4,6 +4,9 @@ using System.Threading;
 using MTest.core;
 using MTest.view;
 using System.Windows.Forms;
+using Spring.Context;
+using Spring.Context.Support;
+using System;
 
 namespace MTest.bootstrup
 {
@@ -21,8 +24,9 @@ namespace MTest.bootstrup
         {
             Thread.CurrentThread.Name = "MainThread";
             LOG.Info("Strating...");
+            IApplicationContext ctx = ContextRegistry.GetContext();
 
-            using (ITestController mainTestController = new TestController())
+            using (ITestController mainTestController = new TestController(ctx))
             {
                 if (args.Contains("-nogui"))
                 {

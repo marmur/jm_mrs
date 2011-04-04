@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MTest.core
 {
-    interface IResourceManager
+    public interface IResourceManager
     {
 
     }
