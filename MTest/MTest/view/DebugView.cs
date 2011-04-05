@@ -15,6 +15,13 @@ namespace MTest.view
     public partial class DebugView : Form, IControllerView
     {
         private ITestController testController;
+        private Boolean _overloadControl;
+
+        private Boolean CanUpdateView
+        {
+            get { lock (this) { return _overloadControl; } }
+            set { lock (this) { _overloadControl = value; } }
+        }
 
         public DebugView(ITestController mainController)
         {
@@ -56,19 +63,11 @@ namespace MTest.view
                 List<TestCaseDescription> testCases = new List<TestCaseDescription>();
                 testCases.Add(new TestCaseDescription()
                 {
-                    StartPosition = new Vector(0.0, -2.0),
-                    EndPosition = new Vector(-2.0, -2.0),
-                    StartTime = 10,
+                    StartPosition = new Vector(-9.48, 0.13),
+                    EndPosition = new Vector(3.84, -8,15),
+                    StartTime = 0,
                     DeadlineTime = -1,
-                    ClientType = "CFiraRobot"
-                });
-                testCases.Add(new TestCaseDescription()
-                {
-                    StartPosition = new Vector(1.0, -2.0),
-                    EndPosition = new Vector(-2.0, -2.0),
-                    StartTime = 120,
-                    DeadlineTime = -1,
-                    ClientType = "CFiraRobot"
+                    ClientType = "ClientAgent"
                 });
                 testController.SetTestCases(testCases);
             }
@@ -84,7 +83,10 @@ namespace MTest.view
         {
             if (InvokeRequired)
             {
-                this.BeginInvoke(new System.EventHandler(_UpdateAll));
+                if(CanUpdateView == true){
+                    CanUpdateView = false;
+                    this.BeginInvoke(new System.EventHandler(_UpdateAll));
+                }
             }
             else
             {
@@ -139,6 +141,7 @@ namespace MTest.view
             _UpdateTestCasesList(o, e);
             _UpdateTestCaseDetails();
             Refresh();
+            CanUpdateView = true;
         }
 
         private void _UpdateControlPanel()
