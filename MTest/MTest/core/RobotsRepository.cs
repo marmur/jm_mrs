@@ -7,7 +7,7 @@ using RoBOSSCommunicator;
 namespace MTest.core
 {
 
-    class RobotsRepository
+    public class RobotsRepository
     {
         private class RobotInfo
         {

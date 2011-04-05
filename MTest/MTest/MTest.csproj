@@ -83,7 +83,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="agents\AgentContener.cs" />
+    <Compile Include="agents\AgentLeader.cs" />
     <Compile Include="agents\ClientFira.cs" />
+    <Compile Include="agents\ScoutFira.cs" />
     <Compile Include="core\AgentThreadPool.cs" />
     <Compile Include="core\ICommunicatorManageer.cs" />
     <Compile Include="core\IResourceManager.cs" />

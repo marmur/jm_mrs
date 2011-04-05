@@ -68,6 +68,11 @@ namespace MTest.core
             get { lock (_refreshFocusViewLock) { return _focusedTestCase; } }
         }
 
+        public RobotsRepository RobotsRepository
+        {
+            get { return _robotRepo; }
+        }
+
         #endregion
 
         #region Constructors Definition
@@ -339,13 +344,37 @@ namespace MTest.core
                 te.WorkingGroup = new WorkingGroup();
                 te.WorkingGroup.Client = client;
                 _resourceManager.initTestCase(te);
+
+                _driverList.Add(client.GetDriver());
+                foreach(IRobotAgent scaut in te.WorkingGroup.Scouts){
+                    _driverList.Add(scaut.GetDriver());
+                }
             }
             catch (Exception ex)
             {
                 te.Status = TestState.Fail;
                 LOG.Error("Cannot run test "+ te.ToString(),ex);
             }
+        }
 
+        static int leaderCount = 0;
+        internal IAgentLeader CreateLeader(string liderType)
+        {
+            IAgentLeader leader = (IAgentLeader) _ctx.GetObject(liderType);
+            leader.Name = liderType + ":" + leaderCount;
+            leaderCount++;
+            leader.SetAgentEnviroment(this);
+            return leader;
+        }
+
+        internal IScoutAgent CreateScout(string scoutType, Vector position)
+        {
+            IScoutAgent scout = (IScoutAgent)_ctx.GetObject(scoutType);
+            IRobotDriver drivare = GetRobotDriver(scout.GetDriverType(), position);
+            scout.Name = scoutType + ";" + drivare.Name;
+            scout.SetDriver(drivare);
+            scout.SetAgentEnviroment(this);
+            return scout;
         }
 
         private IClientAgent CreateClient(string clientType, Vector startPosition)
@@ -356,6 +385,7 @@ namespace MTest.core
             {
                 throw new TestCaseException("No driver for client "+ client.Name);
             }
+            client.Name = clientType + ":" + drivare.Name;
             client.SetDriver(drivare);
             client.SetAgentEnviroment(this);
             client.SetTestEnviroment(_resourceManager);
@@ -370,6 +400,7 @@ namespace MTest.core
             {
                 Vector initialPosition = _robotRepo.GetRobotInitialPosition(robot);
                 robot.SetPosition(startPosition.X, startPosition.Y, initialPosition.Z + 0.005);
+                drivare.SetRobot(robot);
                 return drivare;
             }
             else
@@ -490,6 +521,10 @@ namespace MTest.core
         }
 
         #endregion
+
+
+
+
     }
 
     class TestCaseException : System.Exception

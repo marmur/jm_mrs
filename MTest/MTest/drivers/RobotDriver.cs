@@ -25,6 +25,7 @@ namespace MTest
         void CommandGoTo(double x, double y);
         void CommandLookAt(double x, double y);
         void CommandEmergencyStop();
+        void SetRobot(Robot robot);
 
         int Id
         {

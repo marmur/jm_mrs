@@ -26,6 +26,7 @@ namespace MTest
     {
         string GetDriverType();
         void SetDriver(IRobotDriver driver);
+        IRobotDriver GetDriver();
         void SetLeader(IAgentLeader leader);
     }
 
@@ -43,7 +44,7 @@ namespace MTest
     {
         void SetClient(IClientAgent client);
         void AssignScout(IScoutAgent scout);
-        void SignalWorkDone();
+        void SignalWorkDone(IScoutAgent scout);
     }
 
     public interface IAgentEnviroment

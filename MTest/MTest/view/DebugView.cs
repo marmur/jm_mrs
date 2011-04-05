@@ -67,7 +67,7 @@ namespace MTest.view
                     EndPosition = new Vector(3.84, -8,15),
                     StartTime = 0,
                     DeadlineTime = -1,
-                    ClientType = "ClientAgent"
+                    ClientType = "AgentClient"
                 });
                 testCases.Add(new TestCaseDescription()
                 {
@@ -75,7 +75,7 @@ namespace MTest.view
                     EndPosition = new Vector(-5.93,-0.92),
                     StartTime = 30,
                     DeadlineTime = -1,
-                    ClientType = "ClientAgent"
+                    ClientType = "AgentClient"
                 });
                 testController.SetTestCases(testCases);
             }

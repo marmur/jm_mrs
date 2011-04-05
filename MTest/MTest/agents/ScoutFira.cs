@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace MTest.agents
 {
-    class ClientFira:IClientAgent
+    class ScoutFira:IScoutAgent
     {
         private ITestEnviroment _testEnvironment;
         private IRobotDriver _driver;
@@ -15,14 +15,9 @@ namespace MTest.agents
         private IAgentEnviroment _agentEnviroment;
         private string _name;
 
-        public void SetTestEnviroment(ITestEnviroment enviroment)
-        {
-            _testEnvironment = enviroment;
-        }
-
         public string GetDriverType()
         {
-            return "ClientDirver";
+            return "ScoutDirver";
         }
 
         public void SetDriver(IRobotDriver driver)
@@ -32,7 +27,7 @@ namespace MTest.agents
 
         public IRobotDriver GetDriver()
         {
-            return _driver;
+           return _driver;
         }
 
         public void SetLeader(IAgentLeader leader)
@@ -42,10 +37,9 @@ namespace MTest.agents
 
         public void DoWork()
         {
-            Thread.Sleep(60000);
-            if (_testEnvironment != null)
-            {
-                _testEnvironment.SeignalTestEnd(this);
+            while(true){
+                _agentEnviroment.AgentLOG(this, "Sleep");
+                Thread.Sleep(2000);
             }
         }
 
@@ -65,7 +59,6 @@ namespace MTest.agents
         {
             _agentEnviroment = agentEnviroment;
         }
-
 
     }
 }
