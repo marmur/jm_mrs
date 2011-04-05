@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- /CFiraRobot.xml -->
-<Robot type="CFiraRobot">
+<Robot type="CFiraRobot" color="ffff0000">
     <Parts>
         <Part name="Body" position_z="-0.02">
             <Mass type="box" size_x="0.055" size_y="0.075" size_z="0.075" mass="0.7"/>
