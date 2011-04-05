@@ -5,8 +5,11 @@ using System.Text;
 
 namespace MTest.core
 {
-    public interface IResourceManager
+    public interface IResourceManager: ITestEnviroment
     {
+        void SetTestController(TestController testControlle);
+        void Reset();
 
+        void initTestCase(TestCase te);
     }
 }

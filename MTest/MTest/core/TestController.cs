@@ -10,7 +10,7 @@ using Spring.Context;
 
 namespace MTest.core
 {
-    public class TestController : ITestController
+    public class TestController : ITestController, IAgentEnviroment
     {
         #region Logging Definition
         private static readonly ILog LOG = LogManager.GetLogger(typeof(TestController));
@@ -65,7 +65,7 @@ namespace MTest.core
 
         public TestCase FocusedTestCase
         {
-            get { return _focusedTestCase; }
+            get { lock (_refreshFocusViewLock) { return _focusedTestCase; } }
         }
 
         #endregion
@@ -76,6 +76,7 @@ namespace MTest.core
         {
             _ctx = ctx;
             _resourceManager = (IResourceManager)ctx.GetObject("ResourceManager");
+            _resourceManager.SetTestController(this);
             _testCases = new BindingList<TestCase>();
             _communicationManager = new CommunicatorManager();
             _robotRepo = new RobotsRepository();
@@ -98,6 +99,7 @@ namespace MTest.core
                 UpdateProgress("Resetting...", 10);
                 StopTestThread();
                 UpdateProgress("Resetting...", 20);
+                _resourceManager.Reset();
                 _driverList.Clear();
                 _testCases.Clear();
                 UpdateProgress("Resetting...", 50);
@@ -203,6 +205,7 @@ namespace MTest.core
                 UpdateProgress("connecting...", 10);
                 _communicationManager.connect(ipAddr, port);
                 UpdateProgress("Requesting robots", 60);
+                _communicationManager.preStart();
                 Robot[] robots = _communicationManager.getAllRobots();
                 _robotRepo.FillRepo(robots);
                 UpdateProgress("", 0);
@@ -316,20 +319,66 @@ namespace MTest.core
         {
             lock (this)
             {
-                LOG.Debug(":D");
-                Thread.Sleep(1000);
-                if (_communicationManager.TestTime % 100 == 0)
+                foreach (TestCase te in _testCases)
                 {
-                    LOG.Info("O_o");
-                    foreach (TestCase te in _testCases)
+                    if (te.shouldRun(_communicationManager.TestTime))
                     {
-                        te.Description.ClientType = "+";
-                        te.Status = TestState.Fail;
+                        FireTestCase(te);
                     }
-
                 }
             }
         }
+
+        private void FireTestCase(TestCase te)
+        {
+            try
+            {
+                LOG.Info("Strating test case : " + te.ToString());
+                te.Status = TestState.Processing;
+                IClientAgent client = CreateClient(te.Description.ClientType, te.Description.StartPosition);
+                te.WorkingGroup = new WorkingGroup();
+                te.WorkingGroup.Client = client;
+                _resourceManager.initTestCase(te);
+            }
+            catch (Exception ex)
+            {
+                te.Status = TestState.Fail;
+                LOG.Error("Cannot run test "+ te.ToString(),ex);
+            }
+
+        }
+
+        private IClientAgent CreateClient(string clientType, Vector startPosition)
+        {
+            IClientAgent client = (IClientAgent)_ctx.GetObject(clientType);
+            IRobotDriver drivare = GetRobotDriver(client.GetDriverType(), startPosition);
+            if (drivare == null)
+            {
+                throw new TestCaseException("No driver for client "+ client.Name);
+            }
+            client.SetDriver(drivare);
+            client.SetAgentEnviroment(this);
+            client.SetTestEnviroment(_resourceManager);
+            return client;
+        }
+
+        private IRobotDriver GetRobotDriver(string driverType, Vector startPosition)
+        {
+            IRobotDriver drivare = (IRobotDriver)_ctx.GetObject(driverType);
+            Robot robot = _robotRepo.GetFreeRobotByType(drivare.GetRobotType());
+            if (robot != null)
+            {
+                Vector initialPosition = _robotRepo.GetRobotInitialPosition(robot);
+                robot.SetPosition(startPosition.X, startPosition.Y, initialPosition.Z + 0.005);
+                return drivare;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+
 
         internal void ProcessDrivers()
         {
@@ -369,6 +418,7 @@ namespace MTest.core
 
         private void UpdateUI()
         {
+
             if (ControllerView != null)
             {
                 ControllerView.UpdateAll();
@@ -417,12 +467,33 @@ namespace MTest.core
             }
         }
 
+        public void AgentLOG(IAgent from, string message)
+        {
+            lock (_refreshFocusViewLock)
+            {
+                if (_focusedAgent != null && _focusedAgent == from)
+                {
+                    LOG.Info("A{" + from.Name + "}:" + message);
+                }
+            }
+        }
+
+        public void UpdateAgentView(IAgent from)
+        {
+            lock (_refreshFocusViewLock)
+            {
+                if (ControllerView != null && _focusedAgent != null && _focusedAgent == from)
+                {
+                    ControllerView.UpdateAll();
+                }
+            }
+        }
+
         #endregion
+    }
 
-
-
-
-
-
+    class TestCaseException : System.Exception
+    {
+        public TestCaseException(string message) : base(message) { }
     }
 }

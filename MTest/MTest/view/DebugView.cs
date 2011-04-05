@@ -69,6 +69,14 @@ namespace MTest.view
                     DeadlineTime = -1,
                     ClientType = "ClientAgent"
                 });
+                testCases.Add(new TestCaseDescription()
+                {
+                    StartPosition = new Vector(9.78, 8.49),
+                    EndPosition = new Vector(-5.93,-0.92),
+                    StartTime = 30,
+                    DeadlineTime = -1,
+                    ClientType = "ClientAgent"
+                });
                 testController.SetTestCases(testCases);
             }
         }
@@ -244,10 +252,16 @@ namespace MTest.view
             if (testController.FocusedTestCase != null)
             {
                 labelClientType.Text = testController.FocusedTestCase.Description.ClientType;
+                labelTestCaseStatus.Text = testController.FocusedTestCase.Status.ToString();
+                labelTestCaseStartTime.Text = testController.FocusedTestCase.Description.GetFormatedStartTime();
+                labelTestCaseDeadline.Text = testController.FocusedTestCase.Description.GetFormatedDeadLineTime();
             }
             else
             {
                 labelClientType.Text = "";
+                labelTestCaseStatus.Text = "";
+                labelTestCaseStartTime.Text = "";
+                labelTestCaseDeadline.Text = "";
             }
         }
 

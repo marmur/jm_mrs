@@ -26,6 +26,8 @@ namespace MTest
             }
         }
 
+     
+
         private const double rotationEpsilon = 0.005;
         private const double positionEpsilon = 0.005;
         private readonly double maxVelocity;
@@ -35,7 +37,7 @@ namespace MTest
         private const String rangeFinderName = "front_distance";
         private const String leftWheelName = "LeftFrontWheel";
         private const String rightWheelName = "RightFrontWheel";
-
+        private readonly string robotType;
 
 
         private Robot robot;
@@ -45,10 +47,15 @@ namespace MTest
         private Robot.Part leftWhell, rightWheel;
         private List<Command> commandQueue;
 
+        public string GetRobotType()
+        {
+            return robotType;
+        }
 
-        public FiraDriver(double maxVelocity)
+        public FiraDriver(double maxVelocity, string robotType)
         {
             this.maxVelocity = maxVelocity;
+            this.robotType = robotType;
         }
 
         public void SetRobot(Robot r)
@@ -63,10 +70,6 @@ namespace MTest
             commandQueue = new List<Command>();
         }
 
-        public FiraDriver(Robot r):this(10)
-        {
-            SetRobot(r);
-        }
 
         #region Properties
         public DriverStatus Status
@@ -313,5 +316,6 @@ namespace MTest
             status = DriverStatus.Done;
         }
         #endregion
+
     }
 }

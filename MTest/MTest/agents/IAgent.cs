@@ -48,8 +48,8 @@ namespace MTest
 
     public interface IAgentEnviroment
     {
-        void LOG(IAgent from, string message);
-        void UpdateAgentView(IAAgent from);
+        void AgentLOG(IAgent from, string message);
+        void UpdateAgentView(IAgent from);
     }
 
 }

@@ -45,8 +45,14 @@
             this.buttonLoadTest = new System.Windows.Forms.Button();
             this.buttonTestSartStop = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.labelTestCaseStatus = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.labelClientType = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.labelTestCaseStartTime = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.labelTestCaseDeadline = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.controllerConnectionGroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -204,6 +210,12 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.labelTestCaseDeadline);
+            this.groupBox2.Controls.Add(this.label5);
+            this.groupBox2.Controls.Add(this.labelTestCaseStartTime);
+            this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.labelTestCaseStatus);
+            this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.labelClientType);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Location = new System.Drawing.Point(8, 271);
@@ -212,6 +224,24 @@
             this.groupBox2.TabIndex = 18;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Test case details";
+            // 
+            // labelTestCaseStatus
+            // 
+            this.labelTestCaseStatus.AutoSize = true;
+            this.labelTestCaseStatus.Location = new System.Drawing.Point(72, 29);
+            this.labelTestCaseStatus.Name = "labelTestCaseStatus";
+            this.labelTestCaseStatus.Size = new System.Drawing.Size(35, 13);
+            this.labelTestCaseStatus.TabIndex = 21;
+            this.labelTestCaseStatus.Text = "label4";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 29);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(40, 13);
+            this.label3.TabIndex = 20;
+            this.label3.Text = "Status:";
             // 
             // labelClientType
             // 
@@ -230,6 +260,42 @@
             this.label2.Size = new System.Drawing.Size(60, 13);
             this.label2.TabIndex = 19;
             this.label2.Text = "ClientType:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 42);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(54, 13);
+            this.label4.TabIndex = 22;
+            this.label4.Text = "Start time:";
+            // 
+            // labelTestCaseStartTime
+            // 
+            this.labelTestCaseStartTime.AutoSize = true;
+            this.labelTestCaseStartTime.Location = new System.Drawing.Point(72, 42);
+            this.labelTestCaseStartTime.Name = "labelTestCaseStartTime";
+            this.labelTestCaseStartTime.Size = new System.Drawing.Size(35, 13);
+            this.labelTestCaseStartTime.TabIndex = 23;
+            this.labelTestCaseStartTime.Text = "label5";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 55);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(52, 13);
+            this.label5.TabIndex = 24;
+            this.label5.Text = "Deadline:";
+            // 
+            // labelTestCaseDeadline
+            // 
+            this.labelTestCaseDeadline.AutoSize = true;
+            this.labelTestCaseDeadline.Location = new System.Drawing.Point(72, 55);
+            this.labelTestCaseDeadline.Name = "labelTestCaseDeadline";
+            this.labelTestCaseDeadline.Size = new System.Drawing.Size(35, 13);
+            this.labelTestCaseDeadline.TabIndex = 25;
+            this.labelTestCaseDeadline.Text = "label6";
             // 
             // DebugView
             // 
@@ -277,6 +343,12 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label labelClientType;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelTestCaseStatus;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labelTestCaseDeadline;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label labelTestCaseStartTime;
+        private System.Windows.Forms.Label label4;
 
     }
 }

@@ -54,8 +54,6 @@ namespace MTest.core
 
     public interface ITestEnviroment
     {
-        void SeignalTestEnd();
-
-        void UpdateWorkingGroupView(WorkingGroup workingGroup);
+        void SeignalTestEnd(IClientAgent from);
     }
 }

@@ -19,6 +19,7 @@ namespace MTest
 
     public interface IRobotDriver
     {
+        string GetRobotType();
         void Process();
         void CommandTest(double leftEngine, double rightEngine);
         void CommandGoTo(double x, double y);

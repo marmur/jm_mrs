@@ -42,6 +42,7 @@ namespace MTest.core
                     }
                     LOG.Info("Connected to RoboSS controller " + ipAddr + ":" + port);
                     IsConnected = true;
+
                 }
             }
         }
@@ -192,5 +193,21 @@ namespace MTest.core
         }
 
 
+
+        internal void preStart()
+        {
+            if (IsConnected)
+            {
+                SimulationStart();
+                SimulationStart();
+                if (communicator.Receive(Communicator.RECEIVEBLOCKLEVEL_WaitForTimestamp) < 0)
+                {
+                    string msg = "Unable to recive simulation status";
+                    LOG.Debug(msg);
+                    throw new CommunicatorException(msg);
+                }
+                Reset();
+            }
+        }
     }
 }
