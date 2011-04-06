@@ -50,6 +50,8 @@ namespace MTest.core
 
         private IResourceManager _resourceManager;
 
+        private MapManager _mapManager;
+
         public ICommunicatorManageer CommunicatorManager
         {
             get
@@ -90,6 +92,7 @@ namespace MTest.core
             _focusedTestCase = null;
             _refreshFocusViewLock = new Object();
             _driverList = new List<IRobotDriver>();
+            _mapManager = new MapManager();
         }
 
         #endregion
@@ -120,6 +123,7 @@ namespace MTest.core
                     _focusedTestCase = null;
                 }
                 UpdateProgress("", 0);
+                _mapManager.Reset();
             }
             catch (CommunicatorException ce)
             {
@@ -209,10 +213,13 @@ namespace MTest.core
             {
                 UpdateProgress("connecting...", 10);
                 _communicationManager.connect(ipAddr, port);
-                UpdateProgress("Requesting robots", 60);
+                UpdateProgress("Requesting robots", 50);
                 _communicationManager.preStart();
                 Robot[] robots = _communicationManager.getAllRobots();
                 _robotRepo.FillRepo(robots);
+                UpdateProgress("Requesting robots", 80);
+                Geom[] geoms = _communicationManager.GetAllWorldGeoms();
+                _mapManager.Initialize(geoms, robots);
                 UpdateProgress("", 0);
             }
             catch (CommunicatorException ce)
@@ -276,6 +283,7 @@ namespace MTest.core
             StopTestThread();
             _communicationManager.disconnect();
             _clientThreadPool.Dispose();
+            _mapManager.Dispose();
         }
 
         public void PauseTest()
@@ -346,21 +354,22 @@ namespace MTest.core
                 _resourceManager.initTestCase(te);
 
                 _driverList.Add(client.GetDriver());
-                foreach(IRobotAgent scaut in te.WorkingGroup.Scouts){
+                foreach (IRobotAgent scaut in te.WorkingGroup.Scouts)
+                {
                     _driverList.Add(scaut.GetDriver());
                 }
             }
             catch (Exception ex)
             {
                 te.Status = TestState.Fail;
-                LOG.Error("Cannot run test "+ te.ToString(),ex);
+                LOG.Error("Cannot run test " + te.ToString(), ex);
             }
         }
 
         static int leaderCount = 0;
         internal IAgentLeader CreateLeader(string liderType)
         {
-            IAgentLeader leader = (IAgentLeader) _ctx.GetObject(liderType);
+            IAgentLeader leader = (IAgentLeader)_ctx.GetObject(liderType);
             leader.Name = liderType + ":" + leaderCount;
             leaderCount++;
             leader.SetAgentEnviroment(this);
@@ -383,7 +392,7 @@ namespace MTest.core
             IRobotDriver drivare = GetRobotDriver(client.GetDriverType(), startPosition);
             if (drivare == null)
             {
-                throw new TestCaseException("No driver for client "+ client.Name);
+                throw new TestCaseException("No driver for client " + client.Name);
             }
             client.Name = clientType + ":" + drivare.Name;
             client.SetDriver(drivare);

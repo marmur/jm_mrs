@@ -209,5 +209,22 @@ namespace MTest.core
                 Reset();
             }
         }
+
+        internal Geom[] GetAllWorldGeoms()
+        {
+            lock (this)
+            {
+                if (!IsConnected)
+                {
+                    string msg = "RoboSS controller not connected";
+                    LOG.Debug(msg);
+                    throw new CommunicatorException(msg);
+                }
+                else
+                {
+                    return communicator.environmentGeoms;
+                }
+            }
+        }
     }
 }

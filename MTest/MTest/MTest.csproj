@@ -89,6 +89,7 @@
     <Compile Include="core\AgentThreadPool.cs" />
     <Compile Include="core\ICommunicatorManageer.cs" />
     <Compile Include="core\IResourceManager.cs" />
+    <Compile Include="core\MapManager.cs" />
     <Compile Include="core\maps\IMap.cs" />
     <Compile Include="core\maps\Map.cs" />
     <Compile Include="core\maps\MapBody.cs" />

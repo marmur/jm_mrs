@@ -94,7 +94,10 @@ namespace MTest.core.maps
 
         #endregion
 
-
+        public MapBody GetMapBody()
+        {
+            return _mapBody;
+        }
 
         public Map()
         {

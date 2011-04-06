@@ -8,6 +8,7 @@ namespace MTest.core.maps
     public interface MapAware
     {
         void SetMap(IMap map);
+        IMap GetMap();
     }
 
     public interface IMap
