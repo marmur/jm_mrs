@@ -303,5 +303,11 @@ namespace MTest.core.maps
                 }
             }
         }
+
+        public WorldProperties WorldProperties
+        {
+            get { return null; }
+        }
+
     }
 }

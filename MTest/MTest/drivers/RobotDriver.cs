@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using RoBOSSCommunicator;
+using MTest.core.maps;
 
 namespace MTest
 {
@@ -17,7 +18,7 @@ namespace MTest
         Obstacle        // robot has detected obstacle 
     }
 
-    public interface IRobotDriver
+    public interface IRobotDriver: MapAware
     {
         string GetRobotType();
         void Process();

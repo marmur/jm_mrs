@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using MTest.core;
 using System.Threading;
+using MTest.core.maps;
 
 namespace MTest.agents
 {
@@ -14,6 +15,19 @@ namespace MTest.agents
         private IAgentLeader _leader;
         private IAgentEnviroment _agentEnviroment;
         private string _name;
+        private IMap _map;
+
+
+        public void SetMap(IMap map)
+        {
+            _map = map;
+        }
+
+        public IMap GetMap()
+        {
+            return _map;
+        }
+
 
         public string GetDriverType()
         {

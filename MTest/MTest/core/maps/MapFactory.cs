@@ -23,7 +23,7 @@ namespace MTest.core.maps
 
         public IMapManagment CreateMap(Vector startPosition)
         {
-            return new Map();
+            return new Map(null);
         }
 
         public MapHolder CreateMapHolder(double startx, double starty, double stopx, double stopy, double width)

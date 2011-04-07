@@ -18,12 +18,15 @@ namespace MTest.core.maps
 
         void pushMapUpdate(MapHolder update);
         bool isMapFullyUpdated();
+        WorldProperties WorldProperties { get; }
     }
 
     public interface IMapManagment: IMap
     {
         void StartWork();
         void StopWork();
+        void SetWorldProperties(WorldProperties wp);
+        IMapManagment CreateChildMap();
     }
 
 

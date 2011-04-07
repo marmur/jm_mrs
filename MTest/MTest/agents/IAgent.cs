@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MTest.core;
+using MTest.core.maps;
 
 namespace MTest
 {
@@ -35,12 +36,12 @@ namespace MTest
         void SetTestEnviroment(ITestEnviroment enviroment);
     }
 
-    public interface IScoutAgent : IRobotAgent
+    public interface IScoutAgent : IRobotAgent, MapAware
     {
        
     }
 
-    public interface IAgentLeader : IAgent
+    public interface IAgentLeader : IAgent, MapAware
     {
         void SetClient(IClientAgent client);
         void AssignScout(IScoutAgent scout);

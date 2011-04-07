@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using RoBOSSCommunicator;
 using System.ComponentModel;
 using Spring.Context;
+using MTest.core.maps;
+using MTest.agents;
 
 namespace MTest.core
 {
@@ -358,6 +360,24 @@ namespace MTest.core
                 {
                     _driverList.Add(scaut.GetDriver());
                 }
+
+                _clientThreadPool.RunAgentThread(client);
+
+                IMapManagment leaderMap = _mapManager.GetMainMap().CreateChildMap();
+
+                foreach (IScoutAgent scout in te.WorkingGroup.Scouts)
+                {
+                    IMapManagment scoutMap = leaderMap.CreateChildMap();
+                    AgentContainer container = new AgentContainer(scout, scoutMap);
+                    scout.SetMap(scoutMap);
+                    scout.GetDriver().SetMap(scoutMap);
+                    _clientThreadPool.RunAgentThread(container);
+                }
+
+                te.WorkingGroup.Leader.SetMap(leaderMap);
+                AgentContainer leaderContainer = new AgentContainer(te.WorkingGroup.Leader, leaderMap);
+                _clientThreadPool.RunAgentThread(leaderContainer);
+                LOG.Info("Strating test case : " + te.ToString() + " DONE");
             }
             catch (Exception ex)
             {

@@ -11,7 +11,10 @@ namespace MTest.core.maps
         private bool _finish;
         private MapBody _mapBody;
         public static int UNKNOWN_MAP_STATE = -1;
+        private MapManager _mapManager;
+        private WorldProperties _worldProperties;
 
+        public WorldProperties WorldProperties { get { return _worldProperties; } }
 
         private bool Finish
         {
@@ -99,9 +102,26 @@ namespace MTest.core.maps
             return _mapBody;
         }
 
-        public Map()
+        public Map(MapManager mm)
         {
+            _mapManager = mm;
             _mapBody = new MapBody();
         }
+
+        public void SetWorldProperties(WorldProperties wp)
+        {
+            _worldProperties = wp;
+        }
+
+        public IMapManagment CreateChildMap()
+        {
+            Map child = new Map(_mapManager);
+            child.GetMapBody().setParent(this);
+            _mapManager.RegisterChildMap(child);
+            child.SetWorldProperties(_worldProperties);
+            child.StartWork();
+            return child;
+        }
+
     }
 }

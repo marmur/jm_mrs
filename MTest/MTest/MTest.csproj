@@ -82,7 +82,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="agents\AgentContener.cs" />
+    <Compile Include="agents\AgentContainer.cs" />
     <Compile Include="agents\AgentLeader.cs" />
     <Compile Include="agents\ClientFira.cs" />
     <Compile Include="agents\ScoutFira.cs" />

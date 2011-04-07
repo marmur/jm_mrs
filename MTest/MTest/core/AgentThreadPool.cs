@@ -42,7 +42,10 @@ namespace MTest.core
                 }
                 catch (Exception e)
                 {
-                    LOG.Warn("Exception occurs during agent[" + _agent.Name + "] work", e);
+                    if (!(e is ThreadAbortException))
+                    {
+                        LOG.Warn("Exception occurs during agent[" + _agent.Name + "] work", e);
+                    }
                 }
             }
         }
@@ -69,7 +72,10 @@ namespace MTest.core
                 }
                 catch (Exception e)
                 {
-                    LOG.Warn("Exception occurs during agent[" + _container.Agent.Name + "] work", e);
+                    if (!(e is ThreadAbortException))
+                    {
+                        LOG.Warn("Exception occurs during agent[" + _container.Agent.Name + "] work", e);
+                    }
                 }
             }
         }
@@ -95,6 +101,7 @@ namespace MTest.core
                 Thread th = new Thread(new ThreadStart(wrapper.DoWork));
                 th.Name = "AT:" + wrapper.Name;
                 _threadList.Add(th);
+                LOG.Debug("Starting Agent thread :" + th.Name);
                 th.Start();
             }
 
@@ -109,6 +116,7 @@ namespace MTest.core
                 Thread th = new Thread(new ThreadStart(wrapper.DoWork));
                 th.Name = "AT:" + wrapper.Name;
                 _threadList.Add(th);
+                LOG.Debug("Starting Agent thread :" + th.Name);
                 th.Start();
             }
 
@@ -120,6 +128,7 @@ namespace MTest.core
             {
                 foreach (var th in _threadList)
                 {
+                    LOG.Debug("Killing Agent thread :" + th.Name);
                     th.Abort();
                     th.Join();
                 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using RoBOSSCommunicator;
+using MTest.core.maps;
 
 namespace MTest
 {
@@ -46,6 +47,18 @@ namespace MTest
         private Vector direction;
         private Robot.Part leftWhell, rightWheel;
         private List<Command> commandQueue;
+        private IMap _map;
+
+
+        public void SetMap(IMap map)
+        {
+            _map = map;
+        }
+
+        public IMap GetMap()
+        {
+            return _map;
+        }
 
         public string GetRobotType()
         {
@@ -316,6 +329,8 @@ namespace MTest
             status = DriverStatus.Done;
         }
         #endregion
+
+
 
     }
 }
