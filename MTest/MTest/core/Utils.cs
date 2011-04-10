@@ -20,6 +20,10 @@ namespace MTest
         {
         }
 
+        public Vector(double[] d):this(d[0],d[1],d[2])
+        {
+        }
+
         public Vector(Vector copy)
         {
             x = copy.X;

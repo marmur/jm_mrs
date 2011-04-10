@@ -72,6 +72,11 @@ namespace MTest.core
             get { lock (_refreshFocusViewLock) { return _focusedTestCase; } }
         }
 
+        public IAgent FocusedAgent
+        {
+            get { lock (_refreshFocusViewLock) { return _focusedAgent; } }
+        }
+
         public RobotsRepository RobotsRepository
         {
             get { return _robotRepo; }
@@ -231,6 +236,8 @@ namespace MTest.core
             }
             UpdateUI();
         }
+
+        public IMap MainMap { get { return _mapManager.GetMainMap(); } }
 
 
         public void SetTestCases(List<TestCaseDescription> testCasesDescription)

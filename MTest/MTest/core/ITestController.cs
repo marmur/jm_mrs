@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using MTest.view;
 using System.ComponentModel;
+using MTest.core.maps;
 
 namespace MTest.core
 {
@@ -20,6 +21,8 @@ namespace MTest.core
         IControllerView ControllerView { get; set; }
 
         ICommunicatorManageer CommunicatorManager { get; }
+
+        IMap MainMap { get; }
 
         void SetTestCases(List<TestCaseDescription> testCases);
 
@@ -50,6 +53,8 @@ namespace MTest.core
         BindingList<TestCase> TestCasesList { get; }
 
         TestCase FocusedTestCase { get; }
+
+        IAgent FocusedAgent { get; }
     }
 
     public interface ITestEnviroment

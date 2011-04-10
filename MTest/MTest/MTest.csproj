@@ -119,6 +119,7 @@
     <Compile Include="view\DebugView.Designer.cs">
       <DependentUpon>DebugView.cs</DependentUpon>
     </Compile>
+    <Compile Include="view\DrawMapHelper.cs" />
     <Compile Include="view\IControllerView.cs" />
     <Compile Include="view\MainForm.cs">
       <SubType>Form</SubType>

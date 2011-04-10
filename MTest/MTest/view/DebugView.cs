@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using MTest.core;
 using System.Net;
+using MTest.core.maps;
 
 namespace MTest.view
 {
@@ -17,6 +18,7 @@ namespace MTest.view
         private ITestController testController;
         private Boolean _overloadControl;
         private ListBox[] _listBoxAgnets;
+        private bool _showMainMap = false;
 
         private Boolean CanUpdateView
         {
@@ -152,9 +154,12 @@ namespace MTest.view
             _UpdateControlPanel();
             _UpdateTestCasesList(o, e);
             _UpdateTestCaseDetails();
+            _UpdateDriverDetails();
             Refresh();
             CanUpdateView = true;
         }
+
+
 
         private void _UpdateControlPanel()
         {
@@ -275,6 +280,33 @@ namespace MTest.view
             }
         }
 
+        private void _UpdateDriverDetails()
+        {
+            if (testController.FocusedAgent != null && (testController.FocusedAgent is IRobotAgent))
+            {
+                groupBoxDriverDetails.Enabled = true;
+                IRobotDriver driver = ((IRobotAgent)testController.FocusedAgent).GetDriver();
+                labelDriverType.Text = driver.Type;
+                labelRobotType.Text = driver.GetRobotType();
+                labelDriverName.Text = driver.Name;
+                labelDriverStatus.Text = driver.Status.ToString();
+                labelDriverPosition.Text = new Vector(driver.Position).ToString();
+                labelDirection.Text = driver.Direction.ToString();
+                labelSensors.Text = String.Format("{0:0.0000}", driver.SensorsValue[0]);
+            }
+            else
+            {
+                groupBoxDriverDetails.Enabled = false;
+                labelDriverType.Text = "";
+                labelRobotType.Text = "";
+                labelDriverName.Text = "";
+                labelDriverStatus.Text = "";
+                labelDriverPosition.Text = "";
+                labelDirection.Text = "";
+                labelSensors.Text = "";
+            }
+        }
+
 
         #endregion
 
@@ -335,14 +367,89 @@ namespace MTest.view
             if (wg != null)
             {
                 listBoxClient.DataSource = new IClientAgent[] { wg.Client };
-                listBoxClient.DisplayMember = "Name";
                 listBoxLeader.DataSource = new IAgentLeader[] { wg.Leader };
-                listBoxLeader.DisplayMember = "Name";
                 listBoxScouts.DataSource = wg.Scouts;
-                listBoxScouts.DisplayMember = "Name";
             }
         }
 
+
+        private void pictureBoxMap_Paint(object sender, PaintEventArgs e)
+        {
+           if(_showMainMap){
+               DrawMap(testController.MainMap, e);
+           }else{
+               if (testController.FocusedAgent != null && (testController.FocusedAgent is MapAware))
+               {
+                   IMap map = ((MapAware)testController.FocusedAgent).GetMap();
+                   DrawMap(map, e);
+               }
+               else
+               {
+                   DrawMap(null, e);
+               }
+           }
+        }
+
+        private void DrawMap(IMap iMap, PaintEventArgs e)
+        {
+            const int cell_px_size = 1;
+            if (iMap == null || iMap.getCurentMapView() == null)
+            {
+                pictureBoxMap.Size = panelMap.ClientSize;
+                Brush brush = new SolidBrush(Color.White);
+                e.Graphics.FillRectangle(brush, 0, 0, pictureBoxMap.Width, pictureBoxMap.Height);
+                brush.Dispose();
+            }
+            else
+            {
+                MapHolder mapHolder = iMap.getCurentMapView();
+                pictureBoxMap.Width = mapHolder.SizeX * cell_px_size;
+                pictureBoxMap.Height = mapHolder.SizeY * cell_px_size;
+                SolidBrush brush = new SolidBrush(DrawMapHelper.getUnknownColor());
+                e.Graphics.FillRectangle(brush, 0, 0, pictureBoxMap.Width, pictureBoxMap.Height);
+                for (int x = 0; x < mapHolder.SizeX; x++ )
+                {
+                    for (int y = 0; y < mapHolder.SizeY; y++ )
+                    {
+                        brush.Color = DrawMapHelper.getColor(mapHolder.Map[x,y]);
+                        e.Graphics.FillRectangle(brush,x* cell_px_size, y *cell_px_size, cell_px_size,cell_px_size);
+                    }
+                }
+                brush.Dispose();
+            }
+        }
+
+        private void buttonShowMainMap_Click(object sender, EventArgs e)
+        {
+            if (_showMainMap)
+            {
+                _showMainMap = false;
+                buttonShowMainMap.BackColor = connectButton.BackColor;
+            }
+            else
+            {
+                buttonShowMainMap.BackColor = Color.GreenYellow;
+                _showMainMap = true;
+            }
+        }
+
+        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        {
+            SolidBrush brush = new SolidBrush(Color.Black);
+            for (int x = 0; x < pictureBox1.Width;x++ )
+            {
+                for (int y = 0; y < pictureBox1.Height;y++ )
+                {
+                    int c =(int) Math.Ceiling(((double)x /(double)pictureBox1.Width) * (double)int.MaxValue);
+                    if (c > 10000)
+                    {
+                    }
+                    brush.Color = DrawMapHelper.getColor(c);
+                    e.Graphics.FillRectangle(brush, x, y, 1, 1);
+                }
+            }
+            brush.Dispose();
+        }
 
 
 

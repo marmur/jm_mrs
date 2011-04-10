@@ -45,14 +45,6 @@
             this.buttonLoadTest = new System.Windows.Forms.Button();
             this.buttonTestSartStop = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.labelClientType = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.listBoxScouts = new System.Windows.Forms.ListBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.listBoxLeader = new System.Windows.Forms.ListBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.listBoxClient = new System.Windows.Forms.ListBox();
             this.labelFinishPosition = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.labelStartPosition = new System.Windows.Forms.Label();
@@ -61,12 +53,45 @@
             this.label5 = new System.Windows.Forms.Label();
             this.labelTestCaseStartTime = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.labelClientType = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.listBoxScouts = new System.Windows.Forms.ListBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.listBoxLeader = new System.Windows.Forms.ListBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.listBoxClient = new System.Windows.Forms.ListBox();
             this.labelTestCaseStatus = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.groupBoxDriverDetails = new System.Windows.Forms.GroupBox();
+            this.labelSensors = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.labelDirection = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.labelDriverPosition = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.labelDriverStatus = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.labelDriverName = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.labelRobotType = new System.Windows.Forms.Label();
+            this.labe333 = new System.Windows.Forms.Label();
+            this.labelDriverType = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.groupBoxMap = new System.Windows.Forms.GroupBox();
+            this.buttonShowMainMap = new System.Windows.Forms.Button();
+            this.panelMap = new System.Windows.Forms.Panel();
+            this.pictureBoxMap = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.statusStrip1.SuspendLayout();
             this.controllerConnectionGroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBoxDriverDetails.SuspendLayout();
+            this.groupBoxMap.SuspendLayout();
+            this.panelMap.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMap)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -77,7 +102,7 @@
             this.toolStripStatusLabelConnector,
             this.toolStripProgressBar,
             this.toolStripStatusLabelInfo});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 573);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 544);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1016, 22);
             this.statusStrip1.TabIndex = 0;
@@ -220,14 +245,6 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.labelClientType);
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.listBoxScouts);
-            this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Controls.Add(this.listBoxLeader);
-            this.groupBox2.Controls.Add(this.label9);
-            this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Controls.Add(this.listBoxClient);
             this.groupBox2.Controls.Add(this.labelFinishPosition);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.labelStartPosition);
@@ -236,6 +253,14 @@
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.labelTestCaseStartTime);
             this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.labelClientType);
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.listBoxScouts);
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Controls.Add(this.listBoxLeader);
+            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.listBoxClient);
             this.groupBox2.Controls.Add(this.labelTestCaseStatus);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Location = new System.Drawing.Point(8, 192);
@@ -244,78 +269,6 @@
             this.groupBox2.TabIndex = 18;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Test case details";
-            // 
-            // labelClientType
-            // 
-            this.labelClientType.AutoSize = true;
-            this.labelClientType.Location = new System.Drawing.Point(72, 29);
-            this.labelClientType.Name = "labelClientType";
-            this.labelClientType.Size = new System.Drawing.Size(35, 13);
-            this.labelClientType.TabIndex = 19;
-            this.labelClientType.Text = "label3";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 29);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(60, 13);
-            this.label2.TabIndex = 19;
-            this.label2.Text = "ClientType:";
-            // 
-            // listBoxScouts
-            // 
-            this.listBoxScouts.FormattingEnabled = true;
-            this.listBoxScouts.Location = new System.Drawing.Point(47, 149);
-            this.listBoxScouts.Name = "listBoxScouts";
-            this.listBoxScouts.Size = new System.Drawing.Size(191, 56);
-            this.listBoxScouts.TabIndex = 35;
-            this.listBoxScouts.SelectedIndexChanged += new System.EventHandler(this.listBoxAgent_SelectedIndexChanged);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(7, 149);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(43, 13);
-            this.label10.TabIndex = 34;
-            this.label10.Text = "Scouts:";
-            // 
-            // listBoxLeader
-            // 
-            this.listBoxLeader.FormattingEnabled = true;
-            this.listBoxLeader.Location = new System.Drawing.Point(47, 129);
-            this.listBoxLeader.Name = "listBoxLeader";
-            this.listBoxLeader.Size = new System.Drawing.Size(191, 17);
-            this.listBoxLeader.TabIndex = 33;
-            this.listBoxLeader.SelectedIndexChanged += new System.EventHandler(this.listBoxAgent_SelectedIndexChanged);
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 129);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(43, 13);
-            this.label9.TabIndex = 32;
-            this.label9.Text = "Leader:";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 113);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(36, 13);
-            this.label8.TabIndex = 31;
-            this.label8.Text = "Client:";
-            // 
-            // listBoxClient
-            // 
-            this.listBoxClient.FormattingEnabled = true;
-            this.listBoxClient.Location = new System.Drawing.Point(47, 109);
-            this.listBoxClient.Name = "listBoxClient";
-            this.listBoxClient.Size = new System.Drawing.Size(191, 17);
-            this.listBoxClient.TabIndex = 30;
-            this.listBoxClient.SelectedIndexChanged += new System.EventHandler(this.listBoxAgent_SelectedIndexChanged);
             // 
             // labelFinishPosition
             // 
@@ -389,6 +342,78 @@
             this.label4.TabIndex = 22;
             this.label4.Text = "Start time:";
             // 
+            // labelClientType
+            // 
+            this.labelClientType.AutoSize = true;
+            this.labelClientType.Location = new System.Drawing.Point(72, 29);
+            this.labelClientType.Name = "labelClientType";
+            this.labelClientType.Size = new System.Drawing.Size(35, 13);
+            this.labelClientType.TabIndex = 19;
+            this.labelClientType.Text = "label3";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 29);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(60, 13);
+            this.label2.TabIndex = 19;
+            this.label2.Text = "ClientType:";
+            // 
+            // listBoxScouts
+            // 
+            this.listBoxScouts.FormattingEnabled = true;
+            this.listBoxScouts.Location = new System.Drawing.Point(47, 149);
+            this.listBoxScouts.Name = "listBoxScouts";
+            this.listBoxScouts.Size = new System.Drawing.Size(191, 56);
+            this.listBoxScouts.TabIndex = 35;
+            this.listBoxScouts.SelectedIndexChanged += new System.EventHandler(this.listBoxAgent_SelectedIndexChanged);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(7, 149);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(43, 13);
+            this.label10.TabIndex = 34;
+            this.label10.Text = "Scouts:";
+            // 
+            // listBoxLeader
+            // 
+            this.listBoxLeader.FormattingEnabled = true;
+            this.listBoxLeader.Location = new System.Drawing.Point(47, 129);
+            this.listBoxLeader.Name = "listBoxLeader";
+            this.listBoxLeader.Size = new System.Drawing.Size(191, 17);
+            this.listBoxLeader.TabIndex = 33;
+            this.listBoxLeader.SelectedIndexChanged += new System.EventHandler(this.listBoxAgent_SelectedIndexChanged);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(6, 129);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(43, 13);
+            this.label9.TabIndex = 32;
+            this.label9.Text = "Leader:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 113);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(36, 13);
+            this.label8.TabIndex = 31;
+            this.label8.Text = "Client:";
+            // 
+            // listBoxClient
+            // 
+            this.listBoxClient.FormattingEnabled = true;
+            this.listBoxClient.Location = new System.Drawing.Point(47, 109);
+            this.listBoxClient.Name = "listBoxClient";
+            this.listBoxClient.Size = new System.Drawing.Size(191, 17);
+            this.listBoxClient.TabIndex = 30;
+            this.listBoxClient.SelectedIndexChanged += new System.EventHandler(this.listBoxAgent_SelectedIndexChanged);
+            // 
             // labelTestCaseStatus
             // 
             this.labelTestCaseStatus.AutoSize = true;
@@ -407,17 +432,219 @@
             this.label3.TabIndex = 20;
             this.label3.Text = "Status:";
             // 
+            // groupBoxDriverDetails
+            // 
+            this.groupBoxDriverDetails.Controls.Add(this.labelSensors);
+            this.groupBoxDriverDetails.Controls.Add(this.label16);
+            this.groupBoxDriverDetails.Controls.Add(this.labelDirection);
+            this.groupBoxDriverDetails.Controls.Add(this.label15);
+            this.groupBoxDriverDetails.Controls.Add(this.labelDriverPosition);
+            this.groupBoxDriverDetails.Controls.Add(this.label14);
+            this.groupBoxDriverDetails.Controls.Add(this.labelDriverStatus);
+            this.groupBoxDriverDetails.Controls.Add(this.label13);
+            this.groupBoxDriverDetails.Controls.Add(this.labelDriverName);
+            this.groupBoxDriverDetails.Controls.Add(this.label12);
+            this.groupBoxDriverDetails.Controls.Add(this.labelRobotType);
+            this.groupBoxDriverDetails.Controls.Add(this.labe333);
+            this.groupBoxDriverDetails.Controls.Add(this.labelDriverType);
+            this.groupBoxDriverDetails.Controls.Add(this.label11);
+            this.groupBoxDriverDetails.Location = new System.Drawing.Point(8, 413);
+            this.groupBoxDriverDetails.Name = "groupBoxDriverDetails";
+            this.groupBoxDriverDetails.Size = new System.Drawing.Size(243, 126);
+            this.groupBoxDriverDetails.TabIndex = 19;
+            this.groupBoxDriverDetails.TabStop = false;
+            this.groupBoxDriverDetails.Text = "Drivare details";
+            // 
+            // labelSensors
+            // 
+            this.labelSensors.AutoSize = true;
+            this.labelSensors.Location = new System.Drawing.Point(78, 94);
+            this.labelSensors.Name = "labelSensors";
+            this.labelSensors.Size = new System.Drawing.Size(41, 13);
+            this.labelSensors.TabIndex = 13;
+            this.labelSensors.Text = "label17";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(8, 94);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(48, 13);
+            this.label16.TabIndex = 12;
+            this.label16.Text = "Sensors:";
+            // 
+            // labelDirection
+            // 
+            this.labelDirection.AutoSize = true;
+            this.labelDirection.Location = new System.Drawing.Point(78, 81);
+            this.labelDirection.Name = "labelDirection";
+            this.labelDirection.Size = new System.Drawing.Size(41, 13);
+            this.labelDirection.TabIndex = 11;
+            this.labelDirection.Text = "label13";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(7, 81);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(52, 13);
+            this.label15.TabIndex = 10;
+            this.label15.Text = "Direction:";
+            // 
+            // labelDriverPosition
+            // 
+            this.labelDriverPosition.AutoSize = true;
+            this.labelDriverPosition.Location = new System.Drawing.Point(78, 68);
+            this.labelDriverPosition.Name = "labelDriverPosition";
+            this.labelDriverPosition.Size = new System.Drawing.Size(41, 13);
+            this.labelDriverPosition.TabIndex = 9;
+            this.labelDriverPosition.Text = "label13";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(7, 68);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(47, 13);
+            this.label14.TabIndex = 8;
+            this.label14.Text = "Position:";
+            // 
+            // labelDriverStatus
+            // 
+            this.labelDriverStatus.AutoSize = true;
+            this.labelDriverStatus.Location = new System.Drawing.Point(78, 55);
+            this.labelDriverStatus.Name = "labelDriverStatus";
+            this.labelDriverStatus.Size = new System.Drawing.Size(41, 13);
+            this.labelDriverStatus.TabIndex = 7;
+            this.labelDriverStatus.Text = "label13";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(7, 55);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(40, 13);
+            this.label13.TabIndex = 6;
+            this.label13.Text = "Status:";
+            // 
+            // labelDriverName
+            // 
+            this.labelDriverName.AutoSize = true;
+            this.labelDriverName.Location = new System.Drawing.Point(78, 42);
+            this.labelDriverName.Name = "labelDriverName";
+            this.labelDriverName.Size = new System.Drawing.Size(41, 13);
+            this.labelDriverName.TabIndex = 5;
+            this.labelDriverName.Text = "label13";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(7, 42);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(38, 13);
+            this.label12.TabIndex = 4;
+            this.label12.Text = "Name:";
+            // 
+            // labelRobotType
+            // 
+            this.labelRobotType.AutoSize = true;
+            this.labelRobotType.Location = new System.Drawing.Point(78, 29);
+            this.labelRobotType.Name = "labelRobotType";
+            this.labelRobotType.Size = new System.Drawing.Size(41, 13);
+            this.labelRobotType.TabIndex = 3;
+            this.labelRobotType.Text = "label12";
+            // 
+            // labe333
+            // 
+            this.labe333.AutoSize = true;
+            this.labe333.Location = new System.Drawing.Point(7, 29);
+            this.labe333.Name = "labe333";
+            this.labe333.Size = new System.Drawing.Size(62, 13);
+            this.labe333.TabIndex = 2;
+            this.labe333.Text = "Robot type:";
+            // 
+            // labelDriverType
+            // 
+            this.labelDriverType.AutoSize = true;
+            this.labelDriverType.Location = new System.Drawing.Point(78, 16);
+            this.labelDriverType.Name = "labelDriverType";
+            this.labelDriverType.Size = new System.Drawing.Size(41, 13);
+            this.labelDriverType.TabIndex = 1;
+            this.labelDriverType.Text = "label12";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 16);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(61, 13);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "Driver type:";
+            // 
+            // groupBoxMap
+            // 
+            this.groupBoxMap.Controls.Add(this.pictureBox1);
+            this.groupBoxMap.Controls.Add(this.buttonShowMainMap);
+            this.groupBoxMap.Controls.Add(this.panelMap);
+            this.groupBoxMap.Location = new System.Drawing.Point(259, 0);
+            this.groupBoxMap.Name = "groupBoxMap";
+            this.groupBoxMap.Size = new System.Drawing.Size(745, 538);
+            this.groupBoxMap.TabIndex = 20;
+            this.groupBoxMap.TabStop = false;
+            this.groupBoxMap.Text = "Map";
+            // 
+            // buttonShowMainMap
+            // 
+            this.buttonShowMainMap.Location = new System.Drawing.Point(42, 12);
+            this.buttonShowMainMap.Name = "buttonShowMainMap";
+            this.buttonShowMainMap.Size = new System.Drawing.Size(68, 20);
+            this.buttonShowMainMap.TabIndex = 2;
+            this.buttonShowMainMap.Text = "main map";
+            this.buttonShowMainMap.UseVisualStyleBackColor = true;
+            this.buttonShowMainMap.Click += new System.EventHandler(this.buttonShowMainMap_Click);
+            // 
+            // panelMap
+            // 
+            this.panelMap.AutoScroll = true;
+            this.panelMap.Controls.Add(this.pictureBoxMap);
+            this.panelMap.Location = new System.Drawing.Point(6, 38);
+            this.panelMap.Name = "panelMap";
+            this.panelMap.Size = new System.Drawing.Size(733, 494);
+            this.panelMap.TabIndex = 1;
+            // 
+            // pictureBoxMap
+            // 
+            this.pictureBoxMap.BackColor = System.Drawing.Color.White;
+            this.pictureBoxMap.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxMap.Name = "pictureBoxMap";
+            this.pictureBoxMap.Size = new System.Drawing.Size(733, 494);
+            this.pictureBoxMap.TabIndex = 0;
+            this.pictureBoxMap.TabStop = false;
+            this.pictureBoxMap.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxMap_Paint);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(277, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(456, 22);
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
+            // 
             // DebugView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1016, 595);
+            this.ClientSize = new System.Drawing.Size(1016, 566);
+            this.Controls.Add(this.groupBoxMap);
+            this.Controls.Add(this.groupBoxDriverDetails);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.buttonTestSartStop);
             this.Controls.Add(this.buttonLoadTest);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.controllerConnectionGroupBox);
             this.Controls.Add(this.statusStrip1);
+            this.DoubleBuffered = true;
             this.Name = "DebugView";
             this.Text = "DebugView";
             this.statusStrip1.ResumeLayout(false);
@@ -428,6 +655,12 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBoxDriverDetails.ResumeLayout(false);
+            this.groupBoxDriverDetails.PerformLayout();
+            this.groupBoxMap.ResumeLayout(false);
+            this.panelMap.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMap)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -469,6 +702,26 @@
         private System.Windows.Forms.ListBox listBoxLeader;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.GroupBox groupBoxDriverDetails;
+        private System.Windows.Forms.Label labelDriverType;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label labe333;
+        private System.Windows.Forms.Label labelRobotType;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label labelDriverName;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label labelDriverStatus;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label labelDriverPosition;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label labelDirection;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label labelSensors;
+        private System.Windows.Forms.GroupBox groupBoxMap;
+        private System.Windows.Forms.PictureBox pictureBoxMap;
+        private System.Windows.Forms.Panel panelMap;
+        private System.Windows.Forms.Button buttonShowMainMap;
+        private System.Windows.Forms.PictureBox pictureBox1;
 
     }
 }
