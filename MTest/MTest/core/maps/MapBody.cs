@@ -309,5 +309,10 @@ namespace MTest.core.maps
             get { return null; }
         }
 
+        public override string ToString()
+        {
+            return uidString;
+        }
+
     }
 }

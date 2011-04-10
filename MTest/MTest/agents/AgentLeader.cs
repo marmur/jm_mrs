@@ -67,5 +67,10 @@ namespace MTest.agents
             _agentEnviroment = agentEnviroment;
         }
 
+        public override string ToString()
+        {
+            return _name;
+        }
+
     }
 }

@@ -16,6 +16,7 @@ namespace MTest.view
     {
         private ITestController testController;
         private Boolean _overloadControl;
+        private ListBox[] _listBoxAgnets;
 
         private Boolean CanUpdateView
         {
@@ -26,11 +27,12 @@ namespace MTest.view
         public DebugView(ITestController mainController)
         {
             InitializeComponent();
+            _listBoxAgnets = new ListBox[] { listBoxClient, listBoxLeader, listBoxScouts };
 
             testController = mainController;
 
             listBoxTestCases.DataSource = testController.TestCasesList;
-  
+
             UpdateAll();
 
             addressTextBox.Text = Dns.GetHostEntry(Dns.GetHostName()).AddressList[0].ToString();
@@ -57,6 +59,7 @@ namespace MTest.view
             if (testController.IsInitialized())
             {
                 testController.Reset();
+                initAgentsListBoxes(null);
             }
             else
             {
@@ -64,7 +67,7 @@ namespace MTest.view
                 testCases.Add(new TestCaseDescription()
                 {
                     StartPosition = new Vector(-9.48, 0.13),
-                    EndPosition = new Vector(3.84, -8,15),
+                    EndPosition = new Vector(3.84, -8, 15),
                     StartTime = 0,
                     DeadlineTime = -1,
                     ClientType = "AgentClient"
@@ -72,7 +75,7 @@ namespace MTest.view
                 testCases.Add(new TestCaseDescription()
                 {
                     StartPosition = new Vector(9.78, 8.49),
-                    EndPosition = new Vector(-5.93,-0.92),
+                    EndPosition = new Vector(-5.93, -0.92),
                     StartTime = 30,
                     DeadlineTime = -1,
                     ClientType = "AgentClient"
@@ -91,7 +94,8 @@ namespace MTest.view
         {
             if (InvokeRequired)
             {
-                if(CanUpdateView == true){
+                if (CanUpdateView == true)
+                {
                     CanUpdateView = false;
                     this.BeginInvoke(new System.EventHandler(_UpdateAll));
                 }
@@ -154,8 +158,8 @@ namespace MTest.view
 
         private void _UpdateControlPanel()
         {
-            TimeSpan ts = TimeSpan.FromMilliseconds(testController.CommunicatorManager.TestTime/1000);
-            labelTestTime.Text = string.Format("{0:D2}:{1:D2}:{2:D2}",ts.Minutes, ts.Seconds,ts.Milliseconds);
+            TimeSpan ts = TimeSpan.FromMilliseconds(testController.CommunicatorManager.TestTime / 1000);
+            labelTestTime.Text = string.Format("{0:D2}:{1:D2}:{2:D2}", ts.Minutes, ts.Seconds, ts.Milliseconds);
             labelTestTime.Refresh();
 
             if (testController.IsInitialized())
@@ -171,7 +175,8 @@ namespace MTest.view
                 labelTestStatus.Text = "NOT INIT";
             }
 
-            if(!testController.CommunicatorManager.IsConnected){
+            if (!testController.CommunicatorManager.IsConnected)
+            {
                 buttonTestSartStop.Enabled = false;
             }
 
@@ -182,7 +187,7 @@ namespace MTest.view
             else if (testController.IsPaused())
             {
                 buttonTestSartStop.Text = "Go";
-                labelTestStatus.Text = "PAUSED";                
+                labelTestStatus.Text = "PAUSED";
             }
             else
             {
@@ -255,6 +260,9 @@ namespace MTest.view
                 labelTestCaseStatus.Text = testController.FocusedTestCase.Status.ToString();
                 labelTestCaseStartTime.Text = testController.FocusedTestCase.Description.GetFormatedStartTime();
                 labelTestCaseDeadline.Text = testController.FocusedTestCase.Description.GetFormatedDeadLineTime();
+                labelStartPosition.Text = testController.FocusedTestCase.Description.StartPosition.ToString();
+                labelFinishPosition.Text = testController.FocusedTestCase.Description.EndPosition.ToString();
+
             }
             else
             {
@@ -262,6 +270,8 @@ namespace MTest.view
                 labelTestCaseStatus.Text = "";
                 labelTestCaseStartTime.Text = "";
                 labelTestCaseDeadline.Text = "";
+                labelStartPosition.Text = "";
+                labelFinishPosition.Text = "";
             }
         }
 
@@ -276,8 +286,9 @@ namespace MTest.view
                 {
                     testController.ResumeTest();
                 }
-                else { 
-                    testController.PauseTest(); 
+                else
+                {
+                    testController.PauseTest();
                 }
             }
             else
@@ -290,10 +301,49 @@ namespace MTest.view
         {
             if (listBoxTestCases.SelectedIndex != -1)
             {
-                TestCase tc =(TestCase) listBoxTestCases.SelectedItem;
+                TestCase tc = (TestCase)listBoxTestCases.SelectedItem;
                 testController.SetFocusOnTestCase(tc);
+                initAgentsListBoxes(tc.WorkingGroup);
             }
         }
+
+        private void listBoxAgent_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (((ListBox)sender).SelectedItem != null)
+            {
+                foreach (ListBox lb in _listBoxAgnets)
+                {
+                    if (lb == sender)
+                    {
+                        IAgent agent = (IAgent)lb.SelectedItem;
+                        testController.SetFocusOnAgent(agent);
+                    }
+                    else
+                    {
+                        lb.ClearSelected();
+                    }
+                }
+            }
+        }
+
+        private void initAgentsListBoxes(WorkingGroup wg)
+        {
+            testController.SetFocusOnAgent(null);
+            listBoxClient.DataSource = null;
+            listBoxLeader.DataSource = null;
+            listBoxScouts.DataSource = null;
+            if (wg != null)
+            {
+                listBoxClient.DataSource = new IClientAgent[] { wg.Client };
+                listBoxClient.DisplayMember = "Name";
+                listBoxLeader.DataSource = new IAgentLeader[] { wg.Leader };
+                listBoxLeader.DisplayMember = "Name";
+                listBoxScouts.DataSource = wg.Scouts;
+                listBoxScouts.DisplayMember = "Name";
+            }
+        }
+
+
 
 
 

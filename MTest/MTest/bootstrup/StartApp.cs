@@ -22,26 +22,36 @@ namespace MTest.bootstrup
        
         unsafe static void Main(string[] args)
         {
-            Thread.CurrentThread.Name = "MainThread";
-            LOG.Info("Strating...");
-            IApplicationContext ctx = ContextRegistry.GetContext();
-
-            using (ITestController mainTestController = new TestController(ctx))
+            try
             {
-                if (args.Contains("-nogui"))
+                Thread.CurrentThread.Name = "MainThread";
+                LOG.Info("Strating...");
+                IApplicationContext ctx = ContextRegistry.GetContext();
+
+                using (ITestController mainTestController = new TestController(ctx))
                 {
-                    LOG.Info("Console mode on");
-                }
-                else
-                {
-                    using (Form form = new DebugView(mainTestController))
+                    if (args.Contains("-nogui"))
                     {
-                        mainTestController.ControllerView = form as IControllerView;
-                        form.ShowDialog();
+                        LOG.Info("Console mode on");
+                    }
+                    else
+                    {
+                        using (Form form = new DebugView(mainTestController))
+                        {
+                            mainTestController.ControllerView = form as IControllerView;
+                            form.ShowDialog();
+                        }
                     }
                 }
+                LOG.Info("... end");
+                Console.ReadLine();
             }
-            LOG.Info("... end");
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                Console.WriteLine(e.Message);
+                Console.ReadLine();
+            }
         }
     }
 }

@@ -400,7 +400,7 @@ namespace MTest.core
         {
             IScoutAgent scout = (IScoutAgent)_ctx.GetObject(scoutType);
             IRobotDriver drivare = GetRobotDriver(scout.GetDriverType(), position);
-            scout.Name = scoutType + ";" + drivare.Name;
+            scout.Name = scoutType + ":" + drivare.Name;
             scout.SetDriver(drivare);
             scout.SetAgentEnviroment(this);
             return scout;
@@ -514,6 +514,7 @@ namespace MTest.core
         {
             lock (_refreshFocusViewLock)
             {
+                LOG.Debug("Set focus on agent :" + agent);
                 _focusedAgent = agent;
             }
         }
@@ -533,7 +534,7 @@ namespace MTest.core
             {
                 if (_focusedAgent != null && _focusedAgent == from)
                 {
-                    LOG.Info("A{" + from.Name + "}:" + message);
+                    LOG.Info("From Agnet{" + from.Name + "}:" + message);
                 }
             }
         }

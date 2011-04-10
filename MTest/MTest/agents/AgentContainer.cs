@@ -24,9 +24,17 @@ namespace MTest.agents
 
         public void DoWork()
         {
-            _map.StartWork();
-            _agent.DoWork();
-            _map.StopWork();
+            try
+            {
+                _map.StartWork();
+                _agent.DoWork();
+                _map.StartWork();
+            }
+            catch (Exception e)
+            {
+                _map.StopWork();
+                throw e;
+            }
         }
 
     }

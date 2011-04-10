@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using Common.Logging;
 
 namespace MTest.core.maps
 {
@@ -15,6 +16,13 @@ namespace MTest.core.maps
         private WorldProperties _worldProperties;
 
         public WorldProperties WorldProperties { get { return _worldProperties; } }
+
+        #region Logging Definition
+
+        private static readonly ILog LOG = LogManager.GetLogger(typeof(Map));
+
+        #endregion
+
 
         private bool Finish
         {
@@ -40,25 +48,33 @@ namespace MTest.core.maps
 
         public void StartWork()
         {
-            if (mapThread == null)
+            lock (this)
             {
-                mapThread = new Thread(new ThreadStart(this.DoWork));
-                mapThread.Name = "mapThread";
-                mapThread.Start();
+                if (mapThread == null)
+                {
+                    LOG.Debug("Starting map thread for " + _mapBody.ToString());
+                    mapThread = new Thread(new ThreadStart(this.DoWork));
+                    mapThread.Name = "mapThread";
+                    mapThread.Start();
+                }
             }
         }
 
         public void StopWork()
         {
-            if (mapThread != null)
+            lock (this)
             {
-                Finish = true;
-                if (!mapThread.Join(2000))
+                if (mapThread != null)
                 {
-                    mapThread.Abort();
-                    mapThread.Join();
+                    LOG.Debug("Kiling map thread for " + _mapBody.ToString());
+                    Finish = true;
+                    if (!mapThread.Join(2000))
+                    {
+                        mapThread.Abort();
+                        mapThread.Join();
+                    }
+                    mapThread = null;
                 }
-                mapThread = null;
             }
         }
 
