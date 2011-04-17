@@ -188,6 +188,12 @@ namespace MTest.core
                         LOG.Debug(msg);
                         throw new CommunicatorException(msg);
                     }
+                    if (communicator.Send() < 0)
+                    {
+                        string msg = "Unable to send simulation orders";
+                        LOG.Debug(msg);
+                        throw new CommunicatorException(msg);
+                    }
                 }
             }
         }
