@@ -92,6 +92,8 @@ namespace MTest.agents
                     else
                     {
                         //Robot had found an obsitcle - changing course
+
+                        //TODO: Update map
                         _agentEnviroment.AgentLOG(this, "------------Status: " + _driver.Status);
                         update = null;
                         if ((rnd.Next() % 2) == 0)
