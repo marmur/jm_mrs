@@ -51,20 +51,23 @@ namespace MTest.agents
 
         public void DoWork()
         {
+            Thread.Sleep(2000);
+
             double[] oldPosition = _driver.Position;
             double oldX = oldPosition[0];
             double oldY = oldPosition[1];
 
             double mulX = 1;
             double mulY = 1;
-
+            double nextX = 0;
+            double nextY = 0;
             MapHolderBuilder mhb = new MapHolderBuilder(_map.WorldProperties);
             MapHolder update = null;
             Random rnd = new Random();
             while(true){
                 if (_driver.Status == DriverStatus.Processing)
                 {
-                    _agentEnviroment.AgentLOG(this, "Sleep");
+                    _agentEnviroment.AgentLOG(this, "Sleep(" + nextX + ";" + nextY + ")");
                     Thread.Sleep(2000);
                 }
                 else
@@ -111,13 +114,14 @@ namespace MTest.agents
                     oldPosition = _driver.Position;
                     oldX = oldPosition[0];
                     oldY = oldPosition[1];
-                    double nextX = rnd.NextDouble() * 0.1 * mulX + oldX;
-                    double nextY = rnd.NextDouble() * 0.1 * mulY + oldY;
+                    nextX = rnd.NextDouble() * 0.5 * mulX + oldX;
+                    nextY = rnd.NextDouble() * 0.5 * mulY + oldY;
 
-                    _agentEnviroment.AgentLOG(this, "------------GOTO: (" + nextX + "," + nextY +")");
+                    _agentEnviroment.AgentLOG(this, "------------GOTO: (" + nextX + ";" + nextY +")");
                     //moving 
                     _driver.CommandGoTo(nextX,nextY);
-                    
+
+                    Thread.Sleep(4000);
                 }
             }
         }
