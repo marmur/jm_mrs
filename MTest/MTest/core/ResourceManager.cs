@@ -49,6 +49,7 @@ namespace MTest.core
             int allTest = _testController.TestCasesList.Count;
             int allRobots = _testController.RobotsRepository.GetRobotsCount("FiraRobot");
             int scoutsCount = allRobots / allTest;
+            
             for (int i = 0; i < scoutsCount; i++ )
             {
                 Vector position = calculatePosition(clientPositon,i,scoutsCount, 0.7);

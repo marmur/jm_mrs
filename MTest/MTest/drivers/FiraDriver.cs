@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using RoBOSSCommunicator;
 using MTest.core.maps;
+using Common.Logging;
 
 namespace MTest
 {
     class FiraDriver : IRobotDriver
     {
+        private static readonly ILog LOG = LogManager.GetLogger(typeof(FiraDriver));
+
         private struct Command
         {
             public enum CType
@@ -241,6 +244,7 @@ namespace MTest
                     goal.Normalize();
                     dV = new Vector(goal);
                     dV.Sub(direction);
+                    LOG.Debug(">>" + dV.Lenght());
                     if (dV.Lenght() < rotationEpsilon || goal.Lenght() == 0.0)
                     {
                         SetEngineVelocity(0, 0);

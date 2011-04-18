@@ -327,13 +327,17 @@ namespace MTest.core
             UpdateUI();
         }
 
-
+        long overloadController = 0;
         internal void ReciveSimulation()
         {
             lock (this)
             {
                 _communicationManager.Recive();
-                UpdateUI();
+                if(overloadController % 200 == 0){
+                    UpdateUI();
+                    overloadController = 0;
+                }
+                overloadController++;
             }
         }
 

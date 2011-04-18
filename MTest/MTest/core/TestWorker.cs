@@ -76,9 +76,9 @@ namespace MTest.core
                         Thread.Sleep(200);
                     }
                     _testController.ReciveSimulation();
-                    Thread.Sleep(200);
+               
                     _testController.CheckTestCases();
-                    Thread.Sleep(200);
+                  
                     _testController.ProcessDrivers();
                 }
             }catch (Exception e){
