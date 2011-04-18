@@ -244,7 +244,6 @@ namespace MTest
                     goal.Normalize();
                     dV = new Vector(goal);
                     dV.Sub(direction);
-                    LOG.Debug(">>" + dV.Lenght());
                     if (dV.Lenght() < rotationEpsilon || goal.Lenght() == 0.0)
                     {
                         SetEngineVelocity(0, 0);
