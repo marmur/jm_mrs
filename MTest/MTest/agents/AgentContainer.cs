@@ -28,7 +28,7 @@ namespace MTest.agents
             {
                 _map.StartWork();
                 _agent.DoWork();
-                _map.StartWork();
+                _map.StopWork();
             }
             catch (Exception e)
             {
