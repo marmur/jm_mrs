@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MTest.core.maps;
+using System.Threading;
 
 namespace MTest.agents
 {
@@ -47,7 +48,10 @@ namespace MTest.agents
 
         public void DoWork()
         {
- 
+            while (true)
+            {
+                Thread.Sleep(2000);
+            }
         }
 
         public string Name

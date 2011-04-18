@@ -73,7 +73,7 @@ namespace MTest.core.maps
                 {
                     int y = (int)(a * i + b);
 
-                    for (int j = ((y - w) > 0 ? y - w : 0); j < ((y + w + 1) < sizeX ? y + w + 1 : sizeY); j++)
+                    for (int j = ((y - w) > 0 ? y - w : 0); j < ((y + w + 1) < sizeY ? y + w + 1 : sizeY); j++)
                     {
                         map[i, j] = 0;
                     }
