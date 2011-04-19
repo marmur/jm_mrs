@@ -133,7 +133,8 @@ namespace MTest.core.maps
             if (topX < 0 || topY < 0 || sizeX < 0 || sizeY < 0)
             {
                 LOG.Error("Map boundries set to negative values!");
-                throw new Exception("Values cannot be < 0");
+                return null;
+//                throw new Exception("Values cannot be < 0");
             }
 
             if (currentMap != null && topX >= currentMap.mapHolder.X && topY >= currentMap.mapHolder.Y
@@ -163,13 +164,24 @@ namespace MTest.core.maps
                     {
                         parent.pushMapUpdate(currentMap.mapHolder);
                     }
-                    currentMap = new MapVault(parent.requestMapView(topX, topY, sizeX, sizeY));
+
+                    MapHolder parentView = parent.requestMapView(topX, topY, sizeX, sizeY);
+                    if (parentView == null)
+                    {
+                        currentMap = null;
+                        return null;
+                    }
+                    else
+                    {
+                        currentMap = new MapVault(parentView);
+                    }
                     return new MapHolder(currentMap.mapHolder);
                 }
                 else
                 {
                     LOG.Error(uidString + " Requested map part does not exist!");
-                    throw new Exception("No such map");
+                    return null;
+//                    throw new Exception("No such map");
                 }
             }
         }

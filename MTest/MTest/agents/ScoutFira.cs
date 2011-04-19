@@ -70,11 +70,23 @@ namespace MTest.agents
                 mulY *= -1;
             }
 
+            int counterMax = 10;
+            int counter = 0;
+
             double nextX = 0;
             double nextY = 0;
             MapHolderBuilder mhb = new MapHolderBuilder(_map.WorldProperties);
             MapHolder update = null;
             while(true){
+                if (counter <= 0)
+                {
+                    SimulatedWorldPosition swp = _map.WorldProperties.convertRealToSimulatedPositions(new RealWorldPosition(oldX, oldY));
+                    _agentEnviroment.AgentLOG(this, "Request map: [" + swp.x + ";" + swp.y + "]");
+                    _map.requestMapView(swp.x - 50, swp.y -200, 100, 500);
+                    counter = counterMax;
+                }
+
+                counter--;
                 if (_driver.Status == DriverStatus.Processing)
                 {
                     _agentEnviroment.AgentLOG(this, "Sleep(" + nextX + ";" + nextY + ")");
