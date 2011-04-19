@@ -83,8 +83,14 @@ namespace MTest.core.maps
         {
             while (!Finish)
             {
-                _mapBody.retieveOneEmenentFormQueueAndUpdateMap();
-                Thread.Sleep(2000);
+                if (_mapBody.isMapFullyUpdated())
+                {
+                    Thread.Sleep(200);
+                }
+                else
+                {
+                    _mapBody.retieveOneEmenentFormQueueAndUpdateMap();
+                }
             }
         }
 
